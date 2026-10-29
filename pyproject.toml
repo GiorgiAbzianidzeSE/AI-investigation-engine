@@ -22,3 +22,4 @@ corpus = ["pyarrow>=16", "fpdf2>=2.7"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = ["ignore:Payload indexes have no effect in the local Qdrant"]
