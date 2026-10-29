@@ -117,7 +117,8 @@ def require_admin(x_admin_token: str | None = Header(default=None), svc: Service
     if expected in ("", "change-me"):
         raise ApiError(401, "unauthorized", "Uploads are disabled: ADMIN_TOKEN is not configured on the server.")
     if not x_admin_token or not hmac.compare_digest(x_admin_token.encode(), expected.encode()):
-        raise ApiError(401, "unauthorized", "A valid X-Admin-Token header is required for this action.")
+        raise ApiError(401, "unauthorized", "A valid X-Admin-Token header is required for this action "
+                       "(in the UI: the Admin token field on the Documents tab; the value is the server's ADMIN_TOKEN).")
 
 
 # ---------------------------------------------------------------- routes

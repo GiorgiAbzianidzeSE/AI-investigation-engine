@@ -20,6 +20,17 @@ hybrid search, with our own ranking function, not "chat with a PDF".
 Try: *"Which system changes caused payment-processing delays in March 2026, which services were affected, and
 which documents prove it?"*
 
+**Asking questions is open to everyone. Uploading, replacing and deleting documents need the admin token**, so
+a public demo can't be filled with junk or emptied. In the UI, paste it into the *Admin token* field on the
+*Documents* tab; over the API send it as a header:
+
+```bash
+curl -X POST "$URL/documents" -H "X-Admin-Token: $ADMIN_TOKEN" -F file=@report.pdf
+```
+
+The token is the server's `ADMIN_TOKEN` env var (set it in `.env` locally). For the hosted demo, reviewers get
+it from the repository owner on request; it is never committed. Running locally, you choose your own.
+
 ## Architecture
 
 ```
