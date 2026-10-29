@@ -68,11 +68,21 @@ def test_pdf_parser():
     pdf.set_title("INC-2041 incident report")
     pdf.add_page()
     pdf.set_font("Helvetica", size=11)
-    pdf.multi_cell(0, 6, "Card authorizations failed on 2026-03-05.")
+    pdf.multi_cell(0, 6, "Card authorizations failed on 2026-03-05. " + "Payments were slow. " * 20, new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(4)
+    pdf.set_font("Helvetica", "B", 13)
+    pdf.multi_cell(0, 8, "Root cause", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", size=11)
+    pdf.multi_cell(0, 6, "The pool was exhausted.", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(4)
+    pdf.multi_cell(0, 6, "Second paragraph.", new_x="LMARGIN", new_y="NEXT")
     doc = parse_file("INC-2041-incident-report.pdf", bytes(pdf.output()))
     assert doc.title == "INC-2041 incident report"
-    assert "2026-03-05" in doc.text
+    assert doc.date == "2026-03-05"
     assert doc.doc_type == "incident"
+    assert "\n# Root cause\n" in doc.text
+    assert "The pool was exhausted.\n\nSecond paragraph." in doc.text
+    assert chunk_structured(doc.text, doc.title)[-1].heading == "Root cause"
 
 
 def test_unsupported_and_empty():

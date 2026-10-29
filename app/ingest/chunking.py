@@ -49,7 +49,7 @@ def _sections(text: str) -> list[tuple[str | None, list[str]]]:
 def chunk_structured(text: str, title: str, size: int = 200) -> list[Chunk]:
     chunks: list[Chunk] = []
     for heading, paragraphs in _sections(text):
-        prefix = f"{title} > {heading}: " if heading else f"{title}: "
+        prefix = f"{title} > {heading}: " if heading and heading != title else f"{title}: "
         units: list[str] = []
         for para in paragraphs:
             # a paragraph that fits is kept whole; longer ones are split into sentences

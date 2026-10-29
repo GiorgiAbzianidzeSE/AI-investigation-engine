@@ -85,6 +85,9 @@ class FakeStore:
     def count_documents(self):
         return len(self.docs)
 
+    def count_chunks(self, strategy=None):
+        return sum(1 for v in self.chunks.values() if not strategy or v["payload"]["strategy"] == strategy)
+
     def get_chunks(self, doc_id, strategies=None, limit=200):
         hits = [self._hit(v, 0.0) for v in self.chunks.values()
                 if v["payload"]["doc_id"] == doc_id and (not strategies or v["payload"]["strategy"] in strategies)]

@@ -48,7 +48,10 @@ def _to_hit(point) -> Hit:
 class QdrantStore:
     def __init__(self, settings: Settings, client: QdrantClient | None = None):
         self.s = settings
-        self.client = client or QdrantClient(url=settings.qdrant_url, api_key=settings.qdrant_api_key, timeout=60)
+        if client is None:
+            client = (QdrantClient(path=settings.qdrant_path) if settings.qdrant_path
+                      else QdrantClient(url=settings.qdrant_url, api_key=settings.qdrant_api_key, timeout=60))
+        self.client = client
 
     # ---------- setup ----------
     def ensure_collections(self) -> None:
@@ -125,6 +128,10 @@ class QdrantStore:
 
     def count_documents(self) -> int:
         return self.client.count(self.s.documents_collection, exact=False).count
+
+    def count_chunks(self, strategy: str | None = None) -> int:
+        f = _strategy_filter([strategy]) if strategy else None
+        return self.client.count(self.s.chunks_collection, count_filter=f, exact=True).count
 
     def get_chunks(self, doc_id: str, strategies: list[str] | None = None, limit: int = 200) -> list[Hit]:
         f = _doc_filter(doc_id)

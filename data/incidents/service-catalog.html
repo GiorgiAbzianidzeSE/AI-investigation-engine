@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Service Catalog - Northwind Payments</title><style>body{font-family:sans-serif;max-width:50em}td,th{border:1px solid #ccc;padding:4px}</style></head><body>
+<nav>Northwind Payments intranet</nav>
+<h1>Service Catalog - Northwind Payments</h1>
+<p>Last updated 2026-03-01. One row per production service with its owning team and a short description. Contact the owning team for questions about a service.</p>
+<table><tr><th>Service</th><th>Owner</th><th>Description</th></tr><tr><td>payments-gateway</td><td>Payments Core team</td><td>Entry point for card authorizations from merchants and acquirers.</td></tr><tr><td>fraud-scorer</td><td>Risk Engineering</td><td>Scores each card authorization for fraud risk.</td></tr><tr><td>ledger-service</td><td>Core Banking team</td><td>Records authorization holds and balances in the ledger DB.</td></tr><tr><td>settlement-batch</td><td>Treasury Engineering</td><td>Nightly job that calculates and sends merchant payouts.</td></tr><tr><td>reconciliation-job</td><td>Finance Ops Engineering</td><td>Nightly job that reconciles the ledger with bank statements; runs 00:00 to 01:30 UTC.</td></tr><tr><td>notification-service</td><td>Customer Comms team</td><td>Sends transaction emails and SMS through the external provider MailRelay.</td></tr><tr><td>auth-service</td><td>Identity team</td><td>Authenticates merchant users of the dashboard and API.</td></tr></table>
+<footer>Internal - Northwind Payments</footer>
+</body></html>

@@ -8,6 +8,7 @@ class Settings(BaseSettings):
 
     qdrant_url: str = "http://localhost:6333"
     qdrant_api_key: str | None = None
+    qdrant_path: str | None = None  # embedded local Qdrant (dev only); overrides qdrant_url when set
     chunks_collection: str = "chunks"
     documents_collection: str = "documents"
 
