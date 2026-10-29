@@ -131,7 +131,7 @@ class FakeLLM:
         self.provider_names = ["fake"]
 
     def chat(self, messages, tools=None, json_mode=False):
-        self.calls.append({"messages": messages, "tools": tools, "json_mode": json_mode})
+        self.calls.append({"messages": [dict(m) for m in messages], "tools": tools, "json_mode": json_mode})
         if not self.replies:
             raise AssertionError("FakeLLM ran out of scripted replies")
         r = self.replies.pop(0)
