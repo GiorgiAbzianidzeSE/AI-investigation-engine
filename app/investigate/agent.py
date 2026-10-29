@@ -76,7 +76,7 @@ class Investigator:
                 "role": "assistant", "content": reply.content or "",
                 "tool_calls": [{"id": tc["id"], "type": "function",
                                 "function": {"name": tc["name"], "arguments": json.dumps(tc["arguments"])},
-                                **({"extra_content": tc["extra_content"]} if tc.get("extra_content") else {})}
+                                **{k: tc[k] for k in ("extra_content", "endpoint") if k in tc}}
                                for tc in reply.tool_calls],
             })
             finished = False

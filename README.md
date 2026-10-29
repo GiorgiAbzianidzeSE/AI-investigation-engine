@@ -63,7 +63,7 @@ Browser ──► FastAPI on a Hugging Face Docker Space
 | **Agent loop with tool calling** | Multi-hop questions need a second search for an entity the first search revealed. |
 | **Validation in code** | The model is never trusted to cite correctly; anything it can't back with a retrieved chunk is removed. |
 | **No LangChain / LlamaIndex** | Every step is a small plain-Python module you can read and change. Only `search/store.py` imports `qdrant_client` and only `llm/provider.py` imports `openai`, so tests swap in fakes. |
-| **Gemini + Groq via the `openai` SDK** | One code path for both OpenAI-compatible endpoints. 45 s timeout, retry on 429/5xx/timeout (2 s, 4 s), then the next provider; all down → HTTP 503, never an invented answer. Responses are cached (memory, and a JSON file for the eval). |
+| **Gemini + Groq via the `openai` SDK** | One code path for both OpenAI-compatible endpoints. `GEMINI_MODEL` / `GROQ_MODEL` take comma-separated model chains (free-tier quotas are per model; gemini-3.5-flash allows only 20 requests/day). 45 s timeout, retry on 429/5xx/timeout (2 s, 4 s), a model whose *daily* quota is spent is skipped for an hour, then the next model; all down → HTTP 503, never an invented answer. Gemini 3 thought signatures are echoed back to the model that produced them; another Gemini model gets Google's placeholder signature after a mid-investigation fallback. Responses are cached (memory, and a JSON file for the eval). |
 
 ### The ranker (`app/search/ranker.py`)
 
@@ -142,7 +142,7 @@ Evaluation: `uv run python -m eval.run_eval --experiments e1,e2,sweep` (retrieva
 |---|---|---|---|
 | HF Space CPU basic | sleeps after inactivity; 2 vCPU / 16 GB | first request after sleep takes ~1 min | open `/health` first to wake it |
 | Qdrant Cloud free | 1 GB RAM, single node; pauses when idle for long | 65k × 384-d vectors + payload fit | payload on disk; resume from the console if paused |
-| Gemini free tier | requests per minute / per day | the eval or the demo can hit 429 | retries, Groq fallback, LLM cache |
+| Gemini free tier | requests per minute / per day (20/day on gemini-3.5-flash) | the eval or the demo can hit 429 | model chain, daily-quota cooldown, Groq fallback, LLM cache |
 | Groq free tier | requests and tokens per minute / per day | same | same |
 
 **Cost:** $0 on free tiers. At paid prices, see the per-question token averages in [EVALUATION.md](EVALUATION.md).

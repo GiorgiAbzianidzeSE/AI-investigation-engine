@@ -17,6 +17,7 @@ from pathlib import Path
 from app.config import Settings
 
 log = logging.getLogger(__name__)
+EXHAUSTED_COOLDOWN_S = 3600
 
 
 class LLMUnavailable(RuntimeError):
@@ -59,10 +60,11 @@ class Endpoint:
 
 class LLMProvider:
     def __init__(self, endpoints: list[Endpoint], max_retries: int = 2, cache_path: str | None = None,
-                 sleep=time.sleep):
+                 sleep=time.sleep, clock=time.monotonic):
         if not endpoints:
             raise LLMUnavailable("No LLM configured: set GEMINI_API_KEY and/or GROQ_API_KEY")
-        self.endpoints, self.max_retries, self.sleep = endpoints, max_retries, sleep
+        self.endpoints, self.max_retries, self.sleep, self.clock = endpoints, max_retries, sleep, clock
+        self.exhausted: dict[str, float] = {}  # endpoint name -> clock time until which it is skipped
         self.names = [ep.name for ep in endpoints]
         self.cache_path = Path(cache_path) if cache_path else None
         self.cache: dict[str, dict] = {}
@@ -74,12 +76,14 @@ class LLMProvider:
         from openai import OpenAI
 
         endpoints = []
-        if s.gemini_api_key:
-            endpoints.append(Endpoint("gemini", OpenAI(api_key=s.gemini_api_key, base_url=s.gemini_base_url,
-                                                       timeout=s.llm_timeout_s, max_retries=0), s.gemini_model))
-        if s.groq_api_key:
-            endpoints.append(Endpoint("groq", OpenAI(api_key=s.groq_api_key, base_url=s.groq_base_url,
-                                                     timeout=s.llm_timeout_s, max_retries=0), s.groq_model))
+        # each model is its own endpoint: free-tier quotas are per model, so a chain outlasts a single model
+        for provider, key, url, models in [("gemini", s.gemini_api_key, s.gemini_base_url, s.gemini_model),
+                                           ("groq", s.groq_api_key, s.groq_base_url, s.groq_model)]:
+            if not key:
+                continue
+            client = OpenAI(api_key=key, base_url=url, timeout=s.llm_timeout_s, max_retries=0)
+            for model in [m.strip() for m in models.split(",") if m.strip()]:
+                endpoints.append(Endpoint(f"{provider}:{model}", client, model))
         return cls(endpoints, s.llm_max_retries, s.llm_cache_path)
 
     def chat(self, messages: list[dict], tools: list[dict] | None = None, json_mode: bool = False) -> LLMReply:
@@ -89,6 +93,9 @@ class LLMProvider:
 
         errors = []
         for ep in self.endpoints:
+            if self.exhausted.get(ep.name, 0) > self.clock():
+                errors.append(f"{ep.name}: daily quota exhausted")
+                continue
             for attempt in range(self.max_retries + 1):
                 try:
                     reply = self._call(ep, messages, tools, json_mode)
@@ -98,6 +105,9 @@ class LLMProvider:
                     retryable = _is_retryable(e)
                     errors.append(f"{ep.name}: {type(e).__name__}: {str(e)[:200]}")
                     log.warning("LLM %s attempt %d failed (%s)", ep.name, attempt + 1, errors[-1])
+                    if _is_daily_quota(e):
+                        self.exhausted[ep.name] = self.clock() + EXHAUSTED_COOLDOWN_S
+                        break
                     if not retryable or attempt == self.max_retries:
                         break
                     self.sleep(min(20.0, 2.0 * 2 ** attempt))
@@ -122,7 +132,7 @@ class LLMProvider:
             # Gemini 3 returns a thought signature per tool call and rejects (400) a next turn that drops it
             extra = getattr(tc, "extra_content", None) or (getattr(tc, "model_extra", None) or {}).get("extra_content")
             if extra:
-                call["extra_content"] = extra
+                call["extra_content"], call["endpoint"] = extra, ep.name
             calls.append(call)
         usage = getattr(resp, "usage", None)
         return LLMReply(msg.content, calls, ep.name,
@@ -135,17 +145,33 @@ class LLMProvider:
             self.cache_path.write_text(json.dumps(self.cache))
 
 
+SKIP_SIGNATURE = {"google": {"thought_signature": "skip_thought_signature_validator"}}
+
+
 def _for_endpoint(messages: list[dict], name: str) -> list[dict]:
-    """Provider-specific tool-call fields (Gemini's thought signatures) are only sent back to that provider;
-    after a mid-conversation fallback, other endpoints get plain OpenAI messages."""
-    if name == "gemini":
-        return messages
+    """A thought signature is only valid for the Gemini model that produced it. After a mid-conversation
+    fallback, another Gemini model gets Google's documented placeholder (it rejects tool calls without one)
+    and non-Gemini endpoints get plain OpenAI messages."""
+    gemini = name.split(":")[0] == "gemini"
     out = []
     for m in messages:
         if m.get("tool_calls"):
-            m = {**m, "tool_calls": [{k: v for k, v in tc.items() if k != "extra_content"} for tc in m["tool_calls"]]}
+            calls = []
+            for tc in m["tool_calls"]:
+                own = tc.get("endpoint") == name and tc.get("extra_content")
+                tc = {k: v for k, v in tc.items() if k not in ("extra_content", "endpoint")}
+                if gemini:
+                    tc["extra_content"] = own or SKIP_SIGNATURE
+                calls.append(tc)
+            m = {**m, "tool_calls": calls}
         out.append(m)
     return out
+
+
+def _is_daily_quota(e: Exception) -> bool:
+    """A per-day quota 429 won't clear with a few seconds of backoff (Gemini: '...PerDay...', Groq: 'tokens per day')."""
+    text = str(getattr(e, "body", None) or e).lower()
+    return getattr(e, "status_code", None) == 429 and ("perday" in text or "per day" in text)
 
 
 def _is_retryable(e: Exception) -> bool:

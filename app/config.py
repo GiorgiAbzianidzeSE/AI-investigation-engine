@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     model_cache_dir: str = "models"
 
     gemini_api_key: str | None = None
-    gemini_model: str = "gemini-3.5-flash"
+    gemini_model: str = "gemini-3.5-flash,gemini-3-flash-preview,gemini-3.5-flash-lite,gemini-3.1-flash-lite"
     gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     groq_api_key: str | None = None
     groq_model: str = "openai/gpt-oss-120b"
