@@ -1,0 +1,146 @@
+{
+ "aggregate": {
+  "questions": [
+   "S2",
+   "S7",
+   "M1",
+   "M2",
+   "M3",
+   "M7",
+   "X1",
+   "X4",
+   "HB1",
+   "HC1"
+  ]
+ },
+ "rows": [
+  {
+   "w_bridge": 0.0,
+   "w_query": 0.0,
+   "recall@5": 0.733,
+   "recall@10": 0.96,
+   "mrr": 0.917,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.0,
+   "w_query": 0.1,
+   "recall@5": 0.817,
+   "recall@10": 0.96,
+   "mrr": 0.867,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.0,
+   "w_query": 0.2,
+   "recall@5": 0.817,
+   "recall@10": 0.96,
+   "mrr": 0.867,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.0,
+   "w_query": 0.4,
+   "recall@5": 0.767,
+   "recall@10": 0.96,
+   "mrr": 0.85,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.15,
+   "w_query": 0.0,
+   "recall@5": 0.783,
+   "recall@10": 0.96,
+   "mrr": 0.917,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.15,
+   "w_query": 0.1,
+   "recall@5": 0.783,
+   "recall@10": 0.96,
+   "mrr": 0.917,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.15,
+   "w_query": 0.2,
+   "recall@5": 0.817,
+   "recall@10": 0.96,
+   "mrr": 0.867,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.15,
+   "w_query": 0.4,
+   "recall@5": 0.817,
+   "recall@10": 0.96,
+   "mrr": 0.867,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.3,
+   "w_query": 0.0,
+   "recall@5": 0.803,
+   "recall@10": 0.96,
+   "mrr": 0.92,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.3,
+   "w_query": 0.1,
+   "recall@5": 0.803,
+   "recall@10": 0.96,
+   "mrr": 0.92,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.3,
+   "w_query": 0.2,
+   "recall@5": 0.803,
+   "recall@10": 0.96,
+   "mrr": 0.92,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.3,
+   "w_query": 0.4,
+   "recall@5": 0.837,
+   "recall@10": 0.96,
+   "mrr": 0.87,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.5,
+   "w_query": 0.0,
+   "recall@5": 0.77,
+   "recall@10": 0.96,
+   "mrr": 0.87,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.5,
+   "w_query": 0.1,
+   "recall@5": 0.77,
+   "recall@10": 0.96,
+   "mrr": 0.92,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.5,
+   "w_query": 0.2,
+   "recall@5": 0.77,
+   "recall@10": 0.96,
+   "mrr": 0.87,
+   "n": 10
+  },
+  {
+   "w_bridge": 0.5,
+   "w_query": 0.4,
+   "recall@5": 0.803,
+   "recall@10": 0.96,
+   "mrr": 0.87,
+   "n": 10
+  }
+ ]
+}

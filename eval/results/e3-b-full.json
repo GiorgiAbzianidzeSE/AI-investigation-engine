@@ -1,0 +1,1696 @@
+{
+ "aggregate": {
+  "all": {
+   "correct": 0.8,
+   "content_correct": 0.812,
+   "f1": 0.194,
+   "citation_precision": 0.731,
+   "citation_support": 1.0,
+   "latency_s": 17.438,
+   "llm_calls": 4.2,
+   "tokens": 10870.55,
+   "steps": 2.85,
+   "dropped_citations": 0.45,
+   "n": 20
+  },
+  "multi_doc": {
+   "correct": 0.625,
+   "content_correct": 0.75,
+   "f1": 0.201,
+   "citation_precision": 0.861,
+   "citation_support": 1.0,
+   "latency_s": 20.606,
+   "llm_calls": 4.0,
+   "tokens": 9776.75,
+   "steps": 3.125,
+   "dropped_citations": 1.0,
+   "n": 8
+  },
+  "simple": {
+   "correct": 0.875,
+   "content_correct": 0.875,
+   "f1": 0.188,
+   "citation_precision": 0.633,
+   "citation_support": 1.0,
+   "latency_s": 0.205,
+   "llm_calls": 3.25,
+   "tokens": 5499.5,
+   "steps": 1.25,
+   "dropped_citations": 0.125,
+   "n": 8
+  },
+  "unanswerable": {
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 45.565,
+   "llm_calls": 6.5,
+   "tokens": 23800.25,
+   "steps": 5.5,
+   "dropped_citations": 0.0,
+   "n": 4
+  }
+ },
+ "rows": [
+  {
+   "id": "S1",
+   "type": "simple",
+   "question": "When was CHG-0314 deployed?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "CHG-0314 was deployed at 09:00\u202fUTC on 2026\u201103\u201105.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.0,
+   "citation_precision": 0.3333333333333333,
+   "citation_support": 1.0,
+   "latency_s": 0.48,
+   "llm_calls": 4,
+   "tokens": 7962,
+   "cache_hits": 4,
+   "providers": [
+    "gemini",
+    "groq"
+   ],
+   "claims": [
+    {
+     "text": "CHG-0314 deployment occurred at 09:00\u202fUTC on 2026\u201103\u201105",
+     "citations": [
+      "incidents:pm-2041-postmortem-pdf#b3",
+      "incidents:inc-2041-incident-report-pdf#b3",
+      "incidents:changelog-march-2026-md#b2"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:pm-2041-postmortem-pdf#b3",
+     "doc_id": "incidents:pm-2041-postmortem-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b3",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:changelog-march-2026-md#b2",
+     "doc_id": "incidents:changelog-march-2026-md"
+    }
+   ],
+   "steps": 2,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:changelog-march-2026-md",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CHG-0314"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:chg-0314-change-request-docx"
+     },
+     "results": 4
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "S2",
+   "type": "simple",
+   "question": "What did CHG-0311 change?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "CHG-0311 reduced the maximum size of the ledger-service database connection pool from 200 to 50 connections. This configuration update was implemented on March 3, 2026, to reduce costs by allowing for a smaller database instance size.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.14634146341463414,
+   "citation_precision": 0.75,
+   "citation_support": 1.0,
+   "latency_s": 0.28,
+   "llm_calls": 4,
+   "tokens": 8098,
+   "cache_hits": 4,
+   "providers": [
+    "groq",
+    "gemini:gemini-3-flash-preview"
+   ],
+   "claims": [
+    {
+     "text": "CHG-0311 reduced the maximum size of the ledger-service database connection pool from 200 to 50 connections.",
+     "citations": [
+      "incidents:chg-0311-change-request-docx#b1"
+     ]
+    },
+    {
+     "text": "The change was implemented on 2026-03-03.",
+     "citations": [
+      "incidents:chg-0311-change-request-docx#b0",
+      "incidents:ops-review-march-2026-pdf#b2"
+     ]
+    },
+    {
+     "text": "The change involved a configuration update followed by a rolling restart of the ledger-service.",
+     "citations": [
+      "incidents:chg-0311-change-request-docx#b1"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:chg-0311-change-request-docx#b1",
+     "doc_id": "incidents:chg-0311-change-request-docx"
+    },
+    {
+     "chunk_id": "incidents:chg-0311-change-request-docx#b0",
+     "doc_id": "incidents:chg-0311-change-request-docx"
+    },
+    {
+     "chunk_id": "incidents:ops-review-march-2026-pdf#b2",
+     "doc_id": "incidents:ops-review-march-2026-pdf"
+    }
+   ],
+   "steps": 2,
+   "dropped_citations": 1,
+   "cited_docs": [
+    "incidents:chg-0311-change-request-docx",
+    "incidents:ops-review-march-2026-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CHG-0311"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:chg-0311-change-request-docx"
+     },
+     "results": 5
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "S3",
+   "type": "simple",
+   "question": "How long did INC-2047 last?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "INC-2047 lasted for 2 hours and 45 minutes, occurring from 00:30 to 03:15 UTC on March 19, 2026.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.23529411764705882,
+   "citation_precision": 0.75,
+   "citation_support": 1.0,
+   "latency_s": 0.14,
+   "llm_calls": 3,
+   "tokens": 4416,
+   "cache_hits": 3,
+   "providers": [
+    "gemini:gemini-3-flash-preview"
+   ],
+   "claims": [
+    {
+     "text": "INC-2047 had a duration of 2 hours and 45 minutes.",
+     "citations": [
+      "incidents:inc-2047-incident-report-pdf#b0"
+     ]
+    },
+    {
+     "text": "The incident took place between 00:30 and 03:15 UTC.",
+     "citations": [
+      "incidents:inc-2047-incident-report-pdf#b0"
+     ]
+    },
+    {
+     "text": "The incident occurred on March 19, 2026.",
+     "citations": [
+      "incidents:inc-2047-incident-report-pdf#b0",
+      "incidents:ops-review-march-2026-pdf#b3"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b0",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:ops-review-march-2026-pdf#b3",
+     "doc_id": "incidents:ops-review-march-2026-pdf"
+    }
+   ],
+   "steps": 1,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2047"
+     },
+     "results": 8
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "S4",
+   "type": "simple",
+   "question": "Which team owns ledger-service?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The ledger-service is owned by the Core Banking team.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.33333333333333337,
+   "citation_precision": 0.16666666666666666,
+   "citation_support": 1.0,
+   "latency_s": 0.15,
+   "llm_calls": 3,
+   "tokens": 4851,
+   "cache_hits": 3,
+   "providers": [
+    "gemini:gemini-3-flash-preview"
+   ],
+   "claims": [
+    {
+     "text": "The Service Catalog identifies the Core Banking team as the owner of the ledger-service.",
+     "citations": [
+      "incidents:service-catalog-html#b0"
+     ]
+    },
+    {
+     "text": "The Core Banking team requested changes to the ledger-service connection pool in March 2026.",
+     "citations": [
+      "incidents:chg-0331-change-request-docx#b0",
+      "incidents:chg-0311-change-request-docx#b0",
+      "incidents:changelog-march-2026-md#b5",
+      "incidents:changelog-march-2026-md#b1"
+     ]
+    },
+    {
+     "text": "Action items for the ledger-service following the INC-2041 outage were assigned to the Core Banking team.",
+     "citations": [
+      "incidents:pm-2041-postmortem-pdf#b11"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:service-catalog-html#b0",
+     "doc_id": "incidents:service-catalog-html"
+    },
+    {
+     "chunk_id": "incidents:chg-0331-change-request-docx#b0",
+     "doc_id": "incidents:chg-0331-change-request-docx"
+    },
+    {
+     "chunk_id": "incidents:chg-0311-change-request-docx#b0",
+     "doc_id": "incidents:chg-0311-change-request-docx"
+    },
+    {
+     "chunk_id": "incidents:changelog-march-2026-md#b5",
+     "doc_id": "incidents:changelog-march-2026-md"
+    },
+    {
+     "chunk_id": "incidents:changelog-march-2026-md#b1",
+     "doc_id": "incidents:changelog-march-2026-md"
+    },
+    {
+     "chunk_id": "incidents:pm-2041-postmortem-pdf#b11",
+     "doc_id": "incidents:pm-2041-postmortem-pdf"
+    }
+   ],
+   "steps": 1,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:changelog-march-2026-md",
+    "incidents:chg-0311-change-request-docx",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:service-catalog-html"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "ledger-service owner"
+     },
+     "results": 8
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "S5",
+   "type": "simple",
+   "question": "What change was made on 2026-03-24?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "On 2026-03-24, the ledger-service connection pool was restored under change ID CHG-0331.",
+   "correct": 0.0,
+   "content_correct": 0.0,
+   "f1": 0.21052631578947367,
+   "citation_precision": 0.75,
+   "citation_support": 1.0,
+   "latency_s": 0.14,
+   "llm_calls": 3,
+   "tokens": 4442,
+   "cache_hits": 3,
+   "providers": [
+    "gemini:gemini-3-flash-preview"
+   ],
+   "claims": [
+    {
+     "text": "Change CHG-0331, which involved restoring the ledger-service connection pool, was performed on 2026-03-24.",
+     "citations": [
+      "incidents:ops-review-march-2026-pdf#b2",
+      "incidents:chg-0331-change-request-docx#b0"
+     ]
+    },
+    {
+     "text": "The change was requested by the Core Banking team and approved by J. Okafor.",
+     "citations": [
+      "incidents:chg-0331-change-request-docx#b0"
+     ]
+    },
+    {
+     "text": "The status of change CHG-0331 is recorded as Implemented.",
+     "citations": [
+      "incidents:chg-0331-change-request-docx#b0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:ops-review-march-2026-pdf#b2",
+     "doc_id": "incidents:ops-review-march-2026-pdf"
+    },
+    {
+     "chunk_id": "incidents:chg-0331-change-request-docx#b0",
+     "doc_id": "incidents:chg-0331-change-request-docx"
+    }
+   ],
+   "steps": 1,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:chg-0331-change-request-docx",
+    "incidents:ops-review-march-2026-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "change 2026-03-24"
+     },
+     "results": 8
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "S6",
+   "type": "simple",
+   "question": "What caused the notification email delays on March 26?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The notification email delays on March 26 were caused by an outage at MailRelay, an external email provider used by notification-service.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.08695652173913045,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 0.15,
+   "llm_calls": 3,
+   "tokens": 4466,
+   "cache_hits": 3,
+   "providers": [
+    "gemini:gemini-3-flash-preview",
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Transaction notification emails on 2026-03-26 were delayed due to an outage at MailRelay, the external email provider used by notification-service.",
+     "citations": [
+      "incidents:inc-2052-incident-report-pdf#b1"
+     ]
+    },
+    {
+     "text": "MailRelay returned errors for all send requests between 14:10 and 14:30 UTC, causing notification-service to queue messages and retry.",
+     "citations": [
+      "incidents:inc-2052-incident-report-pdf#b2"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:inc-2052-incident-report-pdf#b1",
+     "doc_id": "incidents:inc-2052-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2052-incident-report-pdf#b2",
+     "doc_id": "incidents:inc-2052-incident-report-pdf"
+    }
+   ],
+   "steps": 1,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2052-incident-report-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "March 26 notification email delays"
+     },
+     "results": 8
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "S7",
+   "type": "simple",
+   "question": "What p99 latency did fraud-scorer show after the v4 model rollout?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Following the rollout of the v4 model, the fraud-scorer service's p99 latency was observed to be approximately 900 ms, which was a significant increase from the pre-rollout latency of 80 ms.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.1111111111111111,
+   "citation_precision": 0.6,
+   "citation_support": 1.0,
+   "latency_s": 0.15,
+   "llm_calls": 3,
+   "tokens": 5162,
+   "cache_hits": 3,
+   "providers": [
+    "gemini:gemini-3-flash-preview"
+   ],
+   "claims": [
+    {
+     "text": "The observed p99 latency for fraud-scorer after the v4 model rollout was approximately 900 ms.",
+     "citations": [
+      "incidents:inc-2041-incident-report-pdf#b3",
+      "incidents:inc-2041-incident-report-pdf#b4"
+     ]
+    },
+    {
+     "text": "Prior to the v4 model rollout, the p99 latency was about 80 ms.",
+     "citations": [
+      "incidents:inc-2041-incident-report-pdf#b3"
+     ]
+    },
+    {
+     "text": "The v4 model was expected to have a p99 latency of 120 ms or lower based on load testing in staging.",
+     "citations": [
+      "incidents:chg-0314-change-request-docx#b2"
+     ]
+    },
+    {
+     "text": "The fraud-scorer service has a latency SLO for p99 scoring of below 150 ms.",
+     "citations": [
+      "incidents:fraud-scorer-runbook-md#b2"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b3",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b4",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:chg-0314-change-request-docx#b2",
+     "doc_id": "incidents:chg-0314-change-request-docx"
+    },
+    {
+     "chunk_id": "incidents:fraud-scorer-runbook-md#b2",
+     "doc_id": "incidents:fraud-scorer-runbook-md"
+    }
+   ],
+   "steps": 1,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:chg-0314-change-request-docx",
+    "incidents:fraud-scorer-runbook-md",
+    "incidents:inc-2041-incident-report-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "fraud-scorer v4 model rollout p99 latency"
+     },
+     "results": 8
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "S8",
+   "type": "simple",
+   "question": "When does reconciliation-job run?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The reconciliation-job is a nightly batch job that runs from 00:00 to 01:30 UTC.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.38095238095238093,
+   "citation_precision": 0.7142857142857143,
+   "citation_support": 1.0,
+   "latency_s": 0.15,
+   "llm_calls": 3,
+   "tokens": 4599,
+   "cache_hits": 3,
+   "providers": [
+    "gemini:gemini-3-flash-preview"
+   ],
+   "claims": [
+    {
+     "text": "The reconciliation-job runs every night.",
+     "citations": [
+      "incidents:payments-architecture-md#b5",
+      "incidents:service-catalog-html#b0",
+      "incidents:payments-architecture-md#b1"
+     ]
+    },
+    {
+     "text": "The job is scheduled to run from 00:00 to 01:30 UTC.",
+     "citations": [
+      "incidents:payments-architecture-md#b5",
+      "incidents:service-catalog-html#b0",
+      "incidents:inc-2047-incident-report-pdf#b2",
+      "incidents:inc-2047-incident-report-pdf#b3"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:payments-architecture-md#b5",
+     "doc_id": "incidents:payments-architecture-md"
+    },
+    {
+     "chunk_id": "incidents:service-catalog-html#b0",
+     "doc_id": "incidents:service-catalog-html"
+    },
+    {
+     "chunk_id": "incidents:payments-architecture-md#b1",
+     "doc_id": "incidents:payments-architecture-md"
+    },
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b2",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b3",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    }
+   ],
+   "steps": 1,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:payments-architecture-md",
+    "incidents:service-catalog-html"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "reconciliation-job schedule frequency"
+     },
+     "results": 8
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M1",
+   "type": "multi_doc",
+   "question": "Which system changes caused payment-processing delays in March 2026, which services were affected, and which documents prove it?",
+   "expect_status": "answered",
+   "status": "conflicting_evidence",
+   "answer": "There are conflicting views regarding the exact system changes that caused the payment-processing delays (card authorization and payout issues) in March 2026. Different incident reports and postmortems attribute the root causes to combinations of CHG-0311, CHG-0314, and CHG-0327.",
+   "correct": 0.0,
+   "content_correct": 0.0,
+   "f1": 0.22222222222222224,
+   "citation_precision": 0.5,
+   "citation_support": 1.0,
+   "latency_s": 0.59,
+   "llm_calls": 6,
+   "tokens": 22909,
+   "cache_hits": 6,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite",
+    "gemini:gemini-3-flash-preview"
+   ],
+   "claims": [
+    {
+     "text": "INC-2041 on 2026-03-05 involved card authorization failures/delays.",
+     "citations": [
+      "incidents:ops-review-march-2026-pdf#b3",
+      "incidents:inc-2041-incident-report-pdf#b3"
+     ]
+    },
+    {
+     "text": "INC-2047 on 2026-03-19 involved delayed merchant payouts.",
+     "citations": [
+      "incidents:ops-review-march-2026-pdf#b3",
+      "incidents:inc-2047-incident-report-pdf#b0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:ops-review-march-2026-pdf#b3",
+     "doc_id": "incidents:ops-review-march-2026-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b3",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b0",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b4",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:pm-2041-postmortem-pdf#b4",
+     "doc_id": "incidents:pm-2041-postmortem-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b3",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    }
+   ],
+   "steps": 5,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:pm-2041-postmortem-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "payment-processing delays March 2026"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CHG-0314 CHG-0311 CHG-0327"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2047 root cause change"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041 affected services"
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "finish",
+     "args": {
+      "reason": "Successfully identified the system changes causing payment-processing and payout delays in March 2026, the affected services, and the supporting documents."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [
+    {
+     "topic": "Root cause and contributing system changes for card authorization delays (INC-2041)",
+     "positions": [
+      {
+       "claim": "The incident was caused by two changes acting together: CHG-0314 (fraud model v4 rollout making fraud-scorer slower) and CHG-0311 (reducing the ledger DB connection pool from 200 to 50).",
+       "citations": [
+        "incidents:inc-2041-incident-report-pdf#b4"
+       ]
+      },
+      {
+       "claim": "The root cause was solely CHG-0311, the reduction of the ledger DB connection pool from 200 to 50 connections on 2026-03-03.",
+       "citations": [
+        "incidents:pm-2041-postmortem-pdf#b4"
+       ]
+      }
+     ]
+    },
+    {
+     "topic": "System changes causing merchant payout delays (INC-2047)",
+     "positions": [
+      {
+       "claim": "INC-2047 was linked to change CHG-0327.",
+       "citations": [
+        "incidents:ops-review-march-2026-pdf#b3"
+       ]
+      },
+      {
+       "claim": "CHG-0327 moved settlement-batch from 02:00 to 00:30 UTC, causing row-lock contention with the reconciliation-job.",
+       "citations": [
+        "incidents:inc-2047-incident-report-pdf#b3"
+       ]
+      }
+     ]
+    }
+   ],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M2",
+   "type": "multi_doc",
+   "question": "Which change caused merchant payouts to be late on March 19, and why did it conflict with another job?",
+   "expect_status": "answered",
+   "status": "insufficient_evidence",
+   "answer": "Merchant payouts were delayed on March 19 due to CHG-0327, which changed the start time of the nightly settlement-batch. It conflicted with the reconciliation-job because both jobs wrote to the same ledger DB tables, causing row-lock contention during their overlap.",
+   "correct": 0.0,
+   "content_correct": 1.0,
+   "f1": 0.20408163265306123,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 0.3,
+   "llm_calls": 4,
+   "tokens": 9145,
+   "cache_hits": 4,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [],
+   "steps": 3,
+   "dropped_citations": 4,
+   "cited_docs": [],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "merchant payouts late March 19 change"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CHG-0327 conflict reconciliation-job"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Found all required details: Change CHG-0327 caused merchant payouts to be late on March 19. It conflicted with the reconciliation-job because CHG-0327 moved the settlement-batch start time from 02:00 UTC to 00:30 UTC, causing it to overlap with the reconciliation-job (which runs from 00:00 to 01:30 UTC). Both jobs wrote to the same ledger database tables, resulting in row-lock contention."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M3",
+   "type": "multi_doc",
+   "question": "Why did a fraud model update slow down card authorizations?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The fraud model update (fraud model v4) added new features for card-not-present transactions (roughly 240 features compared to 90 in version 3), which made the fraud-scorer service significantly slower with an observed p99 latency of about 900 ms. Because the payments-gateway calls the fraud-scorer synchronously and keeps the ledger DB connection open until the authorization completes, this increased latency caused ledger database connections to be held much longer. Combined with a recently reduced ledger DB connection pool, this exhaustion of connections caused new authorizations to wait and eventually hit gateway timeouts.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.07920792079207921,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 0.28,
+   "llm_calls": 4,
+   "tokens": 9109,
+   "cache_hits": 4,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Fraud model version 4 added new features for card-not-present transactions, totaling roughly 240 features compared with 90 in version 3.",
+     "citations": [
+      "incidents:chg-0314-change-request-docx#b1"
+     ]
+    },
+    {
+     "text": "The update rolled out via CHG-0314 made fraud-scorer much slower, raising observed p99 latency to about 900 ms.",
+     "citations": [
+      "incidents:inc-2041-incident-report-pdf#b4"
+     ]
+    },
+    {
+     "text": "payments-gateway calls fraud-scorer synchronously and keeps the ledger DB connection open until the authorization completes.",
+     "citations": [
+      "incidents:inc-2041-incident-report-pdf#b4"
+     ]
+    },
+    {
+     "text": "Slow fraud scoring kept ledger DB connections checked out much longer than usual, which exhausted the connection pool and led to gateway timeouts.",
+     "citations": [
+      "incidents:inc-2041-incident-report-pdf#b4"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:chg-0314-change-request-docx#b1",
+     "doc_id": "incidents:chg-0314-change-request-docx"
+    },
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b4",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:chg-0314-change-request-docx",
+    "incidents:inc-2041-incident-report-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "fraud model update slow down card authorizations"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:inc-2041-incident-report-pdf"
+     },
+     "results": 6
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Found exact root cause for incident INC-2041 explaining why the fraud model update slowed down card authorizations."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M4",
+   "type": "multi_doc",
+   "question": "Was the ledger connection pool change ever reverted, and which incident led to that?",
+   "expect_status": "answered",
+   "status": "insufficient_evidence",
+   "answer": "Yes, the ledger connection pool change was reverted, restoring the maximum size from 50 back to 200 connections. This was done as an action item and rollback resulting from incident INC-2041 (the card authorization outage).",
+   "correct": 0.0,
+   "content_correct": 0.0,
+   "f1": 0.09999999999999999,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 21.63,
+   "llm_calls": 3,
+   "tokens": 4392,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [],
+   "steps": 2,
+   "dropped_citations": 4,
+   "cited_docs": [],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "ledger connection pool change reverted incident"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "finish",
+     "args": {
+      "reason": "Found all evidence: The ledger connection pool change (CHG-0311) was reverted via CHG-0331 on March 24, 2026. The incident that led to this rollback and action item was INC-2041 (PM-2041 Postmortem - card authorization outage)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M5",
+   "type": "multi_doc",
+   "question": "Which service was affected by both INC-2041 and INC-2047?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The service affected by both INC-2041 and INC-2047 is the ledger-service.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.25,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 27.4,
+   "llm_calls": 3,
+   "tokens": 6606,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "INC-2041 affected the payments-gateway, fraud-scorer, and ledger-service.",
+     "citations": [
+      "incidents:inc-2041-incident-report-pdf#b5"
+     ]
+    },
+    {
+     "text": "INC-2047 affected the settlement-batch, ledger-service, and reconciliation-job.",
+     "citations": [
+      "incidents:inc-2047-incident-report-pdf#b4"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b5",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b4",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:inc-2047-incident-report-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2047"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Found affected services for both INC-2041 and INC-2047: INC-2041 affected payments-gateway, fraud-scorer, and ledger-service. INC-2047 affected settlement-batch, ledger-service, and reconciliation-job. Both incidents affected ledger-service."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M6",
+   "type": "multi_doc",
+   "question": "Which March 2026 change had no customer impact?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "CHG-0320 (the notification-service TLS certificate rotation on 2026-03-10) had no customer impact.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.2222222222222222,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 31.57,
+   "llm_calls": 3,
+   "tokens": 4414,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "CHG-0320 (2026-03-10) notification-service TLS certificate rotation had no customer impact.",
+     "citations": [
+      "incidents:ops-review-march-2026-pdf#b2",
+      "incidents:chg-0320-change-request-docx#b3"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:ops-review-march-2026-pdf#b2",
+     "doc_id": "incidents:ops-review-march-2026-pdf"
+    },
+    {
+     "chunk_id": "incidents:chg-0320-change-request-docx#b3",
+     "doc_id": "incidents:chg-0320-change-request-docx"
+    }
+   ],
+   "steps": 2,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:chg-0320-change-request-docx",
+    "incidents:ops-review-march-2026-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "March 2026 change customer impact"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "finish",
+     "args": {
+      "reason": "Found the March 2026 change with no customer impact: CHG-0320 (notification-service TLS certificate rotation on 2026-03-10)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M7",
+   "type": "multi_doc",
+   "question": "Which team requested the change that caused INC-2047, and which team owns reconciliation-job?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The change that caused INC-2047 (CHG-0327) was requested by the Treasury Engineering team. The reconciliation-job is owned by Finance Ops Engineering.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.3448275862068966,
+   "citation_precision": 0.6666666666666666,
+   "citation_support": 1.0,
+   "latency_s": 54.33,
+   "llm_calls": 5,
+   "tokens": 14881,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "INC-2047 was linked to CHG-0327.",
+     "citations": [
+      "incidents:ops-review-march-2026-pdf#b3"
+     ]
+    },
+    {
+     "text": "CHG-0327 was requested by Treasury Engineering.",
+     "citations": [
+      "incidents:chg-0327-change-request-docx#b0"
+     ]
+    },
+    {
+     "text": "reconciliation-job is owned by Finance Ops Engineering.",
+     "citations": [
+      "incidents:service-catalog-html#b0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:ops-review-march-2026-pdf#b3",
+     "doc_id": "incidents:ops-review-march-2026-pdf"
+    },
+    {
+     "chunk_id": "incidents:chg-0327-change-request-docx#b0",
+     "doc_id": "incidents:chg-0327-change-request-docx"
+    },
+    {
+     "chunk_id": "incidents:service-catalog-html#b0",
+     "doc_id": "incidents:service-catalog-html"
+    }
+   ],
+   "steps": 4,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:chg-0327-change-request-docx",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:service-catalog-html"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2047"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CHG-0327"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "reconciliation-job owner team"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "finish",
+     "args": {
+      "reason": "Found all required information: INC-2047 was caused by CHG-0327, which was requested by Treasury Engineering. reconciliation-job is owned by Finance Ops Engineering."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "M8",
+   "type": "multi_doc",
+   "question": "Was INC-2052 caused by any March system change?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "No, INC-2052 was not caused by any system change. It was caused by an external provider outage with MailRelay.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.18181818181818182,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 28.75,
+   "llm_calls": 4,
+   "tokens": 6758,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "INC-2052 was due to an external provider outage, not linked to any change.",
+     "citations": [
+      "incidents:ops-review-march-2026-pdf#b3"
+     ]
+    },
+    {
+     "text": "No internal change was involved in INC-2052.",
+     "citations": [
+      "incidents:inc-2052-incident-report-pdf#b2"
+     ]
+    },
+    {
+     "text": "The cause of INC-2052 was an outage at MailRelay, the external email provider.",
+     "citations": [
+      "incidents:inc-2052-incident-report-pdf#b1"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:ops-review-march-2026-pdf#b3",
+     "doc_id": "incidents:ops-review-march-2026-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2052-incident-report-pdf#b2",
+     "doc_id": "incidents:inc-2052-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2052-incident-report-pdf#b1",
+     "doc_id": "incidents:inc-2052-incident-report-pdf"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2052-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2052"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:inc-2052-incident-report-pdf"
+     },
+     "results": 4
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Found clear documentation for INC-2052 confirming it was caused by an external provider outage (MailRelay) and was not linked to any internal system change."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "U1",
+   "type": "unanswerable",
+   "question": "What was the financial cost of INC-2041 in euros?",
+   "expect_status": "insufficient_evidence",
+   "status": "insufficient_evidence",
+   "answer": "The financial cost of INC-2041 in euros is not specified in the evidence; the finance summary states that the cost impact is under review and not yet quantified.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 43.92,
+   "llm_calls": 6,
+   "tokens": 17120,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "The financial impact for INC-2041 is listed as 'not yet quantified' and 'Cost impact under review'.",
+     "citations": [
+      "incidents:finance-summary-march-2026-html#b0"
+     ]
+    },
+    {
+     "text": "Final figures for INC-2041 will be reported once merchant claims are assessed.",
+     "citations": [
+      "incidents:finance-summary-march-2026-html#b1"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:finance-summary-march-2026-html#b0",
+     "doc_id": "incidents:finance-summary-march-2026-html"
+    },
+    {
+     "chunk_id": "incidents:finance-summary-march-2026-html#b1",
+     "doc_id": "incidents:finance-summary-march-2026-html"
+    }
+   ],
+   "steps": 5,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:finance-summary-march-2026-html"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041 financial cost euros"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "doc_ids": [
+       "incidents:pm-2041-postmortem-pdf"
+      ],
+      "query": "cost euro financial impact"
+     },
+     "results": 3
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "cost financial impact euro \u20ac",
+      "doc_ids": [
+       "incidents:inc-2041-incident-report-pdf"
+      ]
+     },
+     "results": 3
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041 merchant claims euros cost"
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "finish",
+     "args": {
+      "reason": "The financial cost of INC-2041 has not yet been quantified or finalized in euros. According to the March 2026 Finance Summary, the cost impact is 'under review' and final figures will be reported once merchant claims are assessed."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [
+    "The financial cost of INC-2041 in euros"
+   ],
+   "error": null
+  },
+  {
+   "id": "U2",
+   "type": "unanswerable",
+   "question": "Who approved CHG-0314?",
+   "expect_status": "insufficient_evidence",
+   "status": "insufficient_evidence",
+   "answer": "The evidence does not specify who approved CHG-0314; the approver field is left blank in the change request document.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 47.18,
+   "llm_calls": 7,
+   "tokens": 26456,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "The change request document for CHG-0314 lists the approver field as blank.",
+     "citations": [
+      "incidents:chg-0314-change-request-docx#b0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:chg-0314-change-request-docx#b0",
+     "doc_id": "incidents:chg-0314-change-request-docx"
+    }
+   ],
+   "steps": 6,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:chg-0314-change-request-docx"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CHG-0314"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:chg-0314-change-request-docx"
+     },
+     "results": 4
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CHG-0314 approver"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"Risk Engineering\" CHG-0314"
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"CHG-0314\" approval OR approved"
+     },
+     "results": 8
+    },
+    {
+     "step": 6,
+     "tool": "finish",
+     "args": {
+      "reason": "The change request document for CHG-0314 (incidents:chg-0314-change-request-docx) lists the 'Approver' and 'Approval date' fields as blank / unrecorded."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [
+    "Name of the approver for CHG-0314"
+   ],
+   "error": null
+  },
+  {
+   "id": "U3",
+   "type": "unanswerable",
+   "question": "Which incidents happened in April 2026?",
+   "expect_status": "insufficient_evidence",
+   "status": "insufficient_evidence",
+   "answer": "The provided evidence does not contain information about any incidents that happened in April 2026. All listed operational incidents occurred in March 2026.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 39.51,
+   "llm_calls": 6,
+   "tokens": 21592,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [],
+   "steps": 5,
+   "dropped_citations": 0,
+   "cited_docs": [],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "April 2026 incidents"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "2026-04"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "April 2026"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "incident"
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "finish",
+     "args": {
+      "reason": "Based on the provided document collection, there are no records of any incidents occurring in April 2026. The available incident documentation covers March 2026 (INC-2041, INC-2047, and INC-2052)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [
+    "Incidents for April 2026"
+   ],
+   "error": null
+  },
+  {
+   "id": "U4",
+   "type": "unanswerable",
+   "question": "What is the SLA of auth-service?",
+   "expect_status": "insufficient_evidence",
+   "status": "insufficient_evidence",
+   "answer": "The provided evidence does not contain information about the SLA of auth-service.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 51.65,
+   "llm_calls": 7,
+   "tokens": 30033,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [],
+   "steps": 6,
+   "dropped_citations": 0,
+   "cited_docs": [],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "auth-service SLA"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "auth-service"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"auth-service\""
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "SLA"
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "search_corpus",
+     "args": {
+      "query": "service catalog"
+     },
+     "results": 8
+    },
+    {
+     "step": 6,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:service-catalog-html"
+     },
+     "results": 1
+    }
+   ],
+   "conflicts": [],
+   "missing": [
+    "SLA of auth-service"
+   ],
+   "error": null
+  }
+ ]
+}

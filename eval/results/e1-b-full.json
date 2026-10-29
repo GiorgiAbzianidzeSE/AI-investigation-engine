@@ -1,0 +1,700 @@
+{
+ "aggregate": {
+  "all": {
+   "recall@5": 0.862,
+   "recall@10": 0.947,
+   "mrr": 0.913,
+   "n": 36
+  },
+  "contradictory": {
+   "recall@5": 0.944,
+   "recall@10": 1.0,
+   "mrr": 0.917,
+   "n": 6
+  },
+  "multi_doc": {
+   "recall@5": 0.858,
+   "recall@10": 0.95,
+   "mrr": 0.817,
+   "n": 8
+  },
+  "multi_hop": {
+   "recall@5": 0.786,
+   "recall@10": 0.893,
+   "mrr": 1.0,
+   "n": 14
+  },
+  "simple": {
+   "recall@5": 0.938,
+   "recall@10": 1.0,
+   "mrr": 0.854,
+   "n": 8
+  }
+ },
+ "rows": [
+  {
+   "id": "S1",
+   "type": "simple",
+   "ranked": [
+    "incidents:chg-0314-change-request-docx",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:changelog-march-2026-md",
+    "incidents:chg-0327-change-request-docx",
+    "incidents:chg-0320-change-request-docx",
+    "incidents:chg-0311-change-request-docx",
+    "incidents:chg-0331-change-request-docx",
+    "hp:66ae42a404352872"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "S2",
+   "type": "simple",
+   "ranked": [
+    "incidents:chg-0311-change-request-docx",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:chg-0314-change-request-docx",
+    "incidents:chg-0320-change-request-docx",
+    "incidents:chg-0327-change-request-docx",
+    "incidents:changelog-march-2026-md",
+    "incidents:inc-2047-incident-report-pdf"
+   ],
+   "recall@5": 0.5,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "S3",
+   "type": "simple",
+   "ranked": [
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:pm-2041-postmortem-pdf",
+    "hp:0f5a004a750ddbde",
+    "hp:f8f020d1b965e753",
+    "hp:0619b6d6caacdcd2",
+    "hp:0f13b23af9dfdad6"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "S4",
+   "type": "simple",
+   "ranked": [
+    "incidents:service-catalog-html",
+    "incidents:changelog-march-2026-md",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:chg-0311-change-request-docx",
+    "incidents:payments-architecture-md",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:inc-2041-incident-report-pdf",
+    "hp:1d57332c182b2ef7",
+    "hp:7ca4c1bd7813de51"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "S5",
+   "type": "simple",
+   "ranked": [
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:chg-0327-change-request-docx",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:changelog-march-2026-md",
+    "incidents:chg-0320-change-request-docx",
+    "incidents:chg-0311-change-request-docx",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:chg-0314-change-request-docx",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:inc-2041-incident-report-pdf"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 0.3333333333333333
+  },
+  {
+   "id": "S6",
+   "type": "simple",
+   "ranked": [
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:inc-2052-incident-report-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:payments-architecture-md",
+    "incidents:changelog-march-2026-md",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:chg-0320-change-request-docx",
+    "incidents:pm-2041-postmortem-pdf"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 0.5
+  },
+  {
+   "id": "S7",
+   "type": "simple",
+   "ranked": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:chg-0314-change-request-docx",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:changelog-march-2026-md",
+    "incidents:fraud-scorer-runbook-md",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:payments-architecture-md",
+    "incidents:service-catalog-html"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "S8",
+   "type": "simple",
+   "ranked": [
+    "incidents:service-catalog-html",
+    "incidents:payments-architecture-md",
+    "incidents:inc-2047-incident-report-pdf",
+    "hp:060e43aa3270dbd3",
+    "incidents:ops-review-march-2026-pdf",
+    "hp:60dcd8e421d4dfca",
+    "incidents:changelog-march-2026-md",
+    "incidents:chg-0327-change-request-docx",
+    "hp:d89eb9a3bcde94d4",
+    "incidents:chg-0320-change-request-docx"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "M1",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:finance-summary-march-2026-html",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:changelog-march-2026-md",
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:inc-2052-incident-report-pdf",
+    "incidents:chg-0327-change-request-docx",
+    "incidents:chg-0331-change-request-docx"
+   ],
+   "recall@5": 0.2,
+   "recall@10": 0.6,
+   "mrr": 0.2
+  },
+  {
+   "id": "M2",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:status-page-march-2026-html",
+    "incidents:payments-architecture-md",
+    "incidents:changelog-march-2026-md",
+    "incidents:service-catalog-html",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:chg-0327-change-request-docx"
+   ],
+   "recall@5": 0.6666666666666666,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "M3",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:payments-architecture-md",
+    "incidents:chg-0314-change-request-docx",
+    "incidents:changelog-march-2026-md",
+    "incidents:fraud-scorer-runbook-md",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:service-catalog-html"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "M4",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:changelog-march-2026-md",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:chg-0311-change-request-docx",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:payments-architecture-md"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 0.3333333333333333
+  },
+  {
+   "id": "M5",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:inc-2052-incident-report-pdf"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "M6",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:changelog-march-2026-md",
+    "incidents:chg-0320-change-request-docx",
+    "incidents:status-page-march-2026-html",
+    "incidents:chg-0327-change-request-docx",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:chg-0311-change-request-docx",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:chg-0314-change-request-docx"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "M7",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:service-catalog-html",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:chg-0327-change-request-docx",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:payments-architecture-md",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:chg-0320-change-request-docx",
+    "incidents:inc-2052-incident-report-pdf"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "M8",
+   "type": "multi_doc",
+   "ranked": [
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:inc-2052-incident-report-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:chg-0331-change-request-docx",
+    "hp:6af36be03eb38826",
+    "hp:adc990ef0dd5250f"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "X1",
+   "type": "contradictory",
+   "ranked": [
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:inc-2052-incident-report-pdf",
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:chg-0331-change-request-docx"
+   ],
+   "recall@5": 0.6666666666666666,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "X2",
+   "type": "contradictory",
+   "ranked": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:status-page-march-2026-html",
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:chg-0331-change-request-docx"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "X3",
+   "type": "contradictory",
+   "ranked": [
+    "incidents:inc-2047-incident-report-pdf",
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:inc-2052-incident-report-pdf",
+    "hp:1d6942c0f832257f",
+    "hp:5218defb8e3c4742",
+    "hp:c8fd91fccff7739e"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "X4",
+   "type": "contradictory",
+   "ranked": [
+    "incidents:fraud-scorer-runbook-md",
+    "incidents:service-catalog-html",
+    "incidents:changelog-march-2026-md",
+    "incidents:chg-0314-change-request-docx",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:payments-architecture-md",
+    "hp:57cf5dfcbba71fb2",
+    "hp:95eb44893f994cec",
+    "hp:28c7ebb1edbe84fe",
+    "hp:b3cc2ca109bf3494"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "X5",
+   "type": "contradictory",
+   "ranked": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:chg-0314-change-request-docx",
+    "incidents:fraud-scorer-runbook-md",
+    "incidents:changelog-march-2026-md",
+    "incidents:payments-architecture-md",
+    "incidents:ops-review-march-2026-pdf"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "X6",
+   "type": "contradictory",
+   "ranked": [
+    "incidents:ops-review-march-2026-pdf",
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf",
+    "incidents:status-page-march-2026-html",
+    "incidents:inc-2052-incident-report-pdf",
+    "incidents:finance-summary-march-2026-html",
+    "incidents:chg-0331-change-request-docx",
+    "incidents:inc-2047-incident-report-pdf"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 0.5
+  },
+  {
+   "id": "HB1",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:66b70bbb4911155c",
+    "hp:52c6e031551ac98d",
+    "hp:9cd11c27b466c295",
+    "hp:a07feea315fc8510",
+    "hp:1deda1fcb17b20b1",
+    "hp:bfaba2737192ff34",
+    "hp:cbd2926bd654e36d",
+    "hp:0ab4b6cd868dbc60",
+    "hp:adad39d709e085d3",
+    "hp:018e5dff7aeb815b"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HB2",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:79f3cae6e2dc4b5c",
+    "hp:0f740d8475e0f3f7",
+    "hp:8425432f91441c3c",
+    "hp:803956f9a6883d84",
+    "hp:7d8749d6b3b6c6c3",
+    "hp:9e4a449f25502515",
+    "hp:747c47421bc398d3",
+    "hp:d9c7ec187dbae749",
+    "hp:644a5f0af3d29cf1",
+    "hp:73195f31383fe712"
+   ],
+   "recall@5": 0.5,
+   "recall@10": 0.5,
+   "mrr": 1.0
+  },
+  {
+   "id": "HB3",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:58fa7312379583a5",
+    "hp:5e64397c92d511c3",
+    "hp:b18c9b6d6059da6f",
+    "hp:8b2fc5aad4d8587a",
+    "hp:e5dfba456540547e",
+    "hp:ec88ae2972f86f9a",
+    "hp:16cb111bcf94fc5b",
+    "hp:5d04714b37a3001b",
+    "hp:6168a9de755774c6",
+    "hp:d013a495259b40f5"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HB4",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:baf5b88bc614582d",
+    "hp:924b24eb21e2eb42",
+    "hp:fe94c2378f5f213d",
+    "hp:2fd31ccbec2131e3",
+    "hp:f0cf11359ed588cf",
+    "hp:08076dc7427eaf31",
+    "hp:d120f0d3e7d61235",
+    "hp:f4cbef30a84a7695",
+    "hp:17778bb5fcd17d14",
+    "hp:937de18640c50652"
+   ],
+   "recall@5": 0.5,
+   "recall@10": 0.5,
+   "mrr": 1.0
+  },
+  {
+   "id": "HB5",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:31121563df122897",
+    "hp:11cd2400fd77bf12",
+    "hp:756e641a91a02600",
+    "hp:b041ee9d231af24a",
+    "hp:3881adcc30fd8c83",
+    "hp:c12cd5185f9ac73a",
+    "hp:2d94c66ccd33d9a6",
+    "hp:057a2d1b48d05132",
+    "hp:059cdf25262b7857",
+    "hp:e6ed5c5cebbba3fb"
+   ],
+   "recall@5": 0.5,
+   "recall@10": 0.5,
+   "mrr": 1.0
+  },
+  {
+   "id": "HB6",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:6e0c063426442e4f",
+    "hp:954765af820e851d",
+    "hp:ed72c326f34f7c8e",
+    "hp:355d5c4c0c23a928",
+    "hp:9eccf0636add6f67",
+    "hp:9178d66c10802e07",
+    "hp:1f0b8026c4df976e",
+    "hp:bb867f6fc17b91c0",
+    "hp:da9ae440efcd13f8",
+    "hp:23367b5160ed5154"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HB7",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:efbeea0e496e62a8",
+    "hp:34df43ba6f85dbbd",
+    "hp:a1e86b70912b2153",
+    "hp:229bb622e2c3876e",
+    "hp:bdd52bbb4e107952",
+    "hp:d5ca0fc3ca32aaef",
+    "hp:b4a71e2d214bb4f1",
+    "hp:031ecb8fad14070b",
+    "hp:552dcc4007a71abf",
+    "hp:b0fac89eedd88fcd"
+   ],
+   "recall@5": 0.5,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HC1",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:0a8ec82f7f4850ed",
+    "hp:59dc81f7888531c4",
+    "hp:dd333af91f540271",
+    "hp:56f4afbe9bebb2d9",
+    "hp:4ffaa996e46e63bc",
+    "hp:e6ec5d4be948f918",
+    "hp:1f5cfddd72828411",
+    "hp:34e47cd6d414a243",
+    "hp:37920b1191801eeb",
+    "hp:39cae64a11a4685f"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HC2",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:bf680b0479386f5f",
+    "hp:f12448da71637b83",
+    "hp:eb2b8dfdec6488b7",
+    "hp:f8e2a682ede291aa",
+    "hp:f16105b464ef566c",
+    "hp:a110b6dd18a16f03",
+    "hp:f10916f2a00e1542",
+    "hp:ef02345f6b0445bd",
+    "hp:c5429d6f058cd586",
+    "hp:472592f3c8c76e83"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HC3",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:43b5ceb04f16bee7",
+    "hp:967c1a1f4fd267d6",
+    "hp:76a09a94e2438887",
+    "hp:11d10560132457e4",
+    "hp:f794d89759c3d252",
+    "hp:98914960a5b6c0b0",
+    "hp:cb89ce873fd491d2",
+    "hp:537b2a981cec3674",
+    "hp:4d46359ff635462d",
+    "hp:d420d263fb5aca4f"
+   ],
+   "recall@5": 0.5,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HC4",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:f156dca161af97a9",
+    "hp:e4226bd6d45894d6",
+    "hp:742626277b469527",
+    "hp:51467356068eebb2",
+    "hp:7af902e6c249bece",
+    "hp:04b9413e4ed1ef5c",
+    "hp:e29ab8faadd87f01",
+    "hp:4ae2bf3352c1190a",
+    "hp:bdd5f6a2cbfa66eb",
+    "hp:f11667cf607878bd"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HC5",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:08419f5a0daf2cb6",
+    "hp:c178c75dc77fbe40",
+    "hp:243408a907983ae1",
+    "hp:b6cb95323c97a577",
+    "hp:de70fff2bd269294",
+    "hp:c67c488257fbde98",
+    "hp:3fb321fb000efa6b",
+    "hp:5fcdbfdca0117af2",
+    "hp:fcb52199f47c6a0c",
+    "hp:dbc2c373417bcef8"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HC6",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:63babce40289a079",
+    "hp:fc74d8766843244c",
+    "hp:698448d0602afdfd",
+    "hp:50283fb2b4ff4d4b",
+    "hp:dc95001f7b5029fd",
+    "hp:a145402a47072f36",
+    "hp:c4fe605dfebbbdff",
+    "hp:070cc2ae40e1c9d6",
+    "hp:35da7cbeac7be8f6",
+    "hp:b93b83bdd7527149"
+   ],
+   "recall@5": 1.0,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  },
+  {
+   "id": "HC7",
+   "type": "multi_hop",
+   "ranked": [
+    "hp:0ff833208b6f393e",
+    "hp:6eaf5aa2e35758b7",
+    "hp:8b6a9a2d9b5af5b3",
+    "hp:d46aa645c969cb10",
+    "hp:17c7d0e6ed49ed41",
+    "hp:2f41e5a3e4ca73ed",
+    "hp:29a89fa4976a3f09",
+    "hp:815f001d686ac990",
+    "hp:018a7bcadbf63d27",
+    "hp:17072b817477985f"
+   ],
+   "recall@5": 0.5,
+   "recall@10": 1.0,
+   "mrr": 1.0
+  }
+ ]
+}
