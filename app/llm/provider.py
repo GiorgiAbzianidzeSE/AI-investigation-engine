@@ -104,7 +104,7 @@ class LLMProvider:
         raise LLMUnavailable("; ".join(errors))
 
     def _call(self, ep: Endpoint, messages, tools, json_mode) -> LLMReply:
-        kwargs = {"model": ep.model, "messages": messages, "temperature": 0}
+        kwargs = {"model": ep.model, "messages": _for_endpoint(messages, ep.name), "temperature": 0}
         if tools:
             kwargs["tools"] = tools
         if json_mode:
@@ -118,7 +118,12 @@ class LLMProvider:
             except json.JSONDecodeError:
                 args = {}
             # some OpenAI-compatible endpoints return empty ids; the follow-up tool message needs one
-            calls.append({"id": tc.id or f"call_{i}", "name": tc.function.name, "arguments": args})
+            call = {"id": tc.id or f"call_{i}", "name": tc.function.name, "arguments": args}
+            # Gemini 3 returns a thought signature per tool call and rejects (400) a next turn that drops it
+            extra = getattr(tc, "extra_content", None) or (getattr(tc, "model_extra", None) or {}).get("extra_content")
+            if extra:
+                call["extra_content"] = extra
+            calls.append(call)
         usage = getattr(resp, "usage", None)
         return LLMReply(msg.content, calls, ep.name,
                         getattr(usage, "prompt_tokens", 0) or 0, getattr(usage, "completion_tokens", 0) or 0)
@@ -128,6 +133,19 @@ class LLMProvider:
         if self.cache_path:
             self.cache_path.parent.mkdir(parents=True, exist_ok=True)
             self.cache_path.write_text(json.dumps(self.cache))
+
+
+def _for_endpoint(messages: list[dict], name: str) -> list[dict]:
+    """Provider-specific tool-call fields (Gemini's thought signatures) are only sent back to that provider;
+    after a mid-conversation fallback, other endpoints get plain OpenAI messages."""
+    if name == "gemini":
+        return messages
+    out = []
+    for m in messages:
+        if m.get("tool_calls"):
+            m = {**m, "tool_calls": [{k: v for k, v in tc.items() if k != "extra_content"} for tc in m["tool_calls"]]}
+        out.append(m)
+    return out
 
 
 def _is_retryable(e: Exception) -> bool:

@@ -85,6 +85,23 @@ def test_cache_hit_makes_no_call(tmp_path):
     assert again.cached and again.content == "once"
 
 
+def test_gemini_thought_signature_kept_for_gemini_only():
+    sig = {"google": {"thought_signature": "abc"}}
+    tc = SimpleNamespace(id="c1", extra_content=sig,
+                         function=SimpleNamespace(name="search_corpus", arguments="{}"))
+    gem = FakeClient([ok_response(None, [tc])])
+    r = LLMProvider([Endpoint("gemini", gem, "m")], sleep=lambda s: None).chat([{"role": "user", "content": "q"}])
+    assert r.tool_calls[0]["extra_content"] == sig
+
+    history = [{"role": "assistant", "content": "", "tool_calls": [
+        {"id": "c1", "type": "function", "function": {"name": "search_corpus", "arguments": "{}"},
+         "extra_content": sig}]}, {"role": "tool", "tool_call_id": "c1", "content": "[]"}]
+    gem2, groq = FakeClient([APIStatusError(429)] * 3), FakeClient([ok_response("ok")])
+    LLMProvider([Endpoint("gemini", gem2, "m"), Endpoint("groq", groq, "m")], sleep=lambda s: None).chat(history)
+    assert gem2.calls[0]["messages"][0]["tool_calls"][0]["extra_content"] == sig
+    assert "extra_content" not in groq.calls[0]["messages"][0]["tool_calls"][0]
+
+
 def test_tool_calls_and_json_mode():
     tc = SimpleNamespace(id="", function=SimpleNamespace(name="search_corpus", arguments=json.dumps({"query": "q"})))
     c = FakeClient([ok_response(None, [tc])])
