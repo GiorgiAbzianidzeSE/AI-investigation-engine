@@ -14,7 +14,7 @@ searches several sources with tools, links facts across documents, and answers *
 When the evidence is missing it says so; when sources disagree it shows both sides. This is agentic RAG over
 hybrid search, with our own ranking function, not "chat with a PDF".
 
-- **Live demo:** _(Hugging Face Space URL, added after deployment)_
+- **Live demo:** _(Render URL, added after deployment)_
 - **Evaluation:** [EVALUATION.md](EVALUATION.md) · **AI usage:** [AI_USAGE.md](AI_USAGE.md) · **Specs:** [specs/](specs/README.md)
 
 Try: *"Which system changes caused payment-processing delays in March 2026, which services were affected, and
@@ -28,7 +28,7 @@ HotpotQA ─┤ scripts/build_hotpot.py ──┐                               
 incidents ┤ scripts/make_incidents.py ┴─► ingest pipeline ────────────────┼──► Qdrant Cloud
           └────────────────────────────────────────────────────────────────┘     chunks (dense + BM25)
                                                                                  documents (registry)
-Browser ──► FastAPI on a Hugging Face Docker Space
+Browser ──► FastAPI in a Docker container (Render)
             ├─ /documents   list · upload · replace · delete ─► ingest pipeline
             ├─ /investigate question ─► agent loop ─► Gemini (fallback: Groq)
             └─ /            single-page UI
@@ -127,10 +127,12 @@ Evaluation: `uv run python -m eval.run_eval --experiments e1,e2,sweep` (retrieva
 
 ## Deployment
 
-- **Hugging Face Docker Space** (free CPU basic) runs FastAPI, the UI and the local embedding models (baked into
-  the image, port 7860, non-root user). Deploy with `HF_TOKEN=hf_... scripts/push_space.sh <user>/<space>`:
-  it pushes only the app files, since the corpus lives in Qdrant and the Space rejects binary files outside LFS.
-- **Qdrant Cloud** free cluster holds all data, so the Space disk is treated as temporary.
+- **Render free web service** runs the Docker image (FastAPI, the UI and the local embedding models baked into
+  the image, non-root user, listens on `$PORT`). `render.yaml` is a blueprint: New → Blueprint → this repo, then
+  fill in the secret env vars. Hugging Face Docker Spaces were the first choice, but free CPU basic for Docker
+  Spaces now requires a PRO subscription; the same image still runs there (port 7860,
+  `HF_TOKEN=hf_... scripts/push_space.sh <user>/<space>`).
+- **Qdrant Cloud** free cluster holds all data, so the container disk is treated as temporary.
 - **Secrets** are Space secrets / `.env` only (git-ignored): `QDRANT_URL, QDRANT_API_KEY, GEMINI_API_KEY,
   GEMINI_MODEL, GROQ_API_KEY, GROQ_MODEL, ADMIN_TOKEN`. Asking questions is public; upload, replace and delete
   need the `X-Admin-Token` header (compared with `hmac.compare_digest`). Writes are disabled while
@@ -140,7 +142,7 @@ Evaluation: `uv run python -m eval.run_eval --experiments e1,e2,sweep` (retrieva
 
 | Resource | Limit | Effect | Mitigation |
 |---|---|---|---|
-| HF Space CPU basic | sleeps after inactivity; 2 vCPU / 16 GB | first request after sleep takes ~1 min | open `/health` first to wake it |
+| Render free web service | 512 MB RAM, 0.1 CPU; sleeps after 15 min idle | cold start ~1 min; slower embedding of queries | open `/health` first to wake it; app idles at ~350 MB |
 | Qdrant Cloud free | 1 GB RAM, single node; pauses when idle for long | 65k × 384-d vectors + payload fit | payload on disk; resume from the console if paused |
 | Gemini free tier | requests per minute / per day (20/day on gemini-3.5-flash) | the eval or the demo can hit 429 | model chain, daily-quota cooldown, Groq fallback, LLM cache |
 | Groq free tier | requests and tokens per minute / per day | same | same |

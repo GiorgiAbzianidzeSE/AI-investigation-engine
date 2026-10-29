@@ -18,4 +18,5 @@ RUN python -c "from app.config import Settings; from app.search.embedder import 
 
 USER user
 EXPOSE 7860
-CMD ["uvicorn", "app.api.main:app", "--host", "0.0.0.0", "--port", "7860"]
+# Render injects PORT; Hugging Face Spaces expect 7860
+CMD ["sh", "-c", "exec uvicorn app.api.main:app --host 0.0.0.0 --port ${PORT:-7860}"]
