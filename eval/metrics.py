@@ -90,6 +90,15 @@ def correctness(q: dict, result: dict) -> float:
     return 1.0 if all(contains(text, m) for m in q["must_include"]) else 0.0
 
 
+def content_correct(q: dict, result: dict) -> float | None:
+    """Answerable questions only: every must_include appears, whatever the status. Separates "wrong answer"
+    from "right answer, but the agent also surfaced a real conflict in the corpus" (strict correctness = 0)."""
+    if q["type"] in ("unanswerable", "contradictory") or not q["must_include"]:
+        return None
+    text = answer_text(result)
+    return 1.0 if all(contains(text, m) for m in q["must_include"]) else 0.0
+
+
 def _position_docs(position: dict, result: dict) -> list[str]:
     by_chunk = {s["chunk_id"]: s["doc_id"] for s in result.get("sources", [])}
     return [by_chunk[c] for c in position["citations"] if c in by_chunk]

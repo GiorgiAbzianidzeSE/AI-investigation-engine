@@ -39,7 +39,7 @@ def q(id_, type_, question, must=(), gold=(), sides=None):
 INCIDENT_QUESTIONS = [
     q("S1", "simple", "When was CHG-0314 deployed?", ["2026-03-05|March 5"], (3, 1)),
     q("S2", "simple", "What did CHG-0311 change?", ["connection pool", "50"], (2, 1)),
-    q("S3", "simple", "How long did INC-2047 last?", ["2 h 45 min|2 hours 45|2h 45"], (8,)),
+    q("S3", "simple", "How long did INC-2047 last?", ["2 h 45 min|2 hours 45|2 hours and 45|2h 45"], (8,)),
     q("S4", "simple", "Which team owns ledger-service?", ["Core Banking"], (13,)),
     q("S5", "simple", "What change was made on 2026-03-24?", ["CHG-0331", "200"], (6, 1)),
     q("S6", "simple", "What caused the notification email delays on March 26?", ["MailRelay"], (9,)),

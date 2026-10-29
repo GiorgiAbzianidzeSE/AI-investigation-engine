@@ -3,6 +3,7 @@
     uv run python -m eval.run_eval --experiments e1,e2          # retrieval only: fast, no LLM
     uv run python -m eval.run_eval --experiments sweep          # ranker weight sweep on 10 questions
     uv run python -m eval.run_eval --experiments e3 [--limit N] [--configs b-full,a-full]
+    uv run python -m eval.run_eval --experiments rescore        # re-grade saved E3 rows, no LLM calls
 
 E1  retrieval method: dense / sparse / rrf / full, strategy B, all questions with gold documents
 E2  chunking: strategy A vs B, mode full, incident questions only
@@ -17,13 +18,13 @@ import time
 from pathlib import Path
 
 from app.config import Settings, get_settings
-from eval.metrics import (aggregate, citation_precision, correctness, has_correct_citation, ranked_docs,
-                          recall_at_k, reciprocal_rank, token_f1)
+from eval.metrics import (aggregate, citation_precision, content_correct, correctness, has_correct_citation,
+                          ranked_docs, recall_at_k, reciprocal_rank, token_f1)
 
 QUESTIONS = Path("eval/questions.jsonl")
 RESULTS = Path("eval/results")
 RETRIEVAL_KEYS = ["recall@5", "recall@10", "mrr"]
-E3_KEYS = ["correct", "f1", "citation_precision", "citation_support", "latency_s", "llm_calls", "tokens",
+E3_KEYS = ["correct", "content_correct", "f1", "citation_precision", "citation_support", "latency_s", "llm_calls", "tokens",
            "steps", "dropped_citations"]
 SWEEP_IDS = ["S2", "S7", "M1", "M2", "M3", "M7", "X1", "X4", "HB1", "HC1"]
 
@@ -121,19 +122,43 @@ def run_e3(settings: Settings, questions, configs: list[str], limit: int | None,
     print_table("e3", summary, E3_KEYS)
 
 
+def rescore_e3(questions) -> None:
+    """Re-grade saved E3 rows after a grader/pattern fix, without new LLM calls."""
+    by_id = {q["id"]: q for q in questions}
+    summary = {}
+    for path in sorted(RESULTS.glob("e3-*.json")):
+        name = path.stem
+        rows = load_rows(name)
+        for r in rows:
+            if r["type"] == "contradictory" and "sources" not in r:
+                continue  # needs the chunk -> doc map, which older rows did not store
+            res = {"status": r["status"], "answer": r["answer"], "claims": r.get("claims", []),
+                   "conflicts": r["conflicts"], "sources": r.get("sources", [])}
+            new = correctness(by_id[r["id"]], res)
+            if new != r["correct"]:
+                print(f"  {name} {r['id']}: correct {r['correct']} -> {new}")
+                r["correct"] = new
+            r["content_correct"] = content_correct(by_id[r["id"]], res)
+        summary[name.removeprefix("e3-")] = aggregate(rows, E3_KEYS)
+        save(name, rows, summary[name.removeprefix("e3-")])
+    print_table("e3", summary, E3_KEYS)
+
+
 def e3_row(q: dict, res: dict) -> dict:
     u = res["usage"]
     answerable = q["type"] not in ("unanswerable",)
     return {
         "id": q["id"], "type": q["type"], "question": q["question"], "expect_status": q["expect_status"],
         "status": res["status"], "answer": res["answer"],
-        "correct": correctness(q, res),
+        "correct": correctness(q, res), "content_correct": content_correct(q, res),
         "f1": token_f1(res["answer"], " ".join(q["must_include"])) if q["must_include"] else None,
         "citation_precision": citation_precision(q, res) if answerable else None,
         "citation_support": (1.0 if has_correct_citation(q, res) else 0.0)
         if answerable and res["status"] != "insufficient_evidence" else None,
         "latency_s": round(u["latency_ms"] / 1000, 2), "llm_calls": u["llm_calls"],
         "tokens": u["input_tokens"] + u["output_tokens"], "cache_hits": u["cache_hits"],
+        "providers": u["providers"], "claims": res["claims"],
+        "sources": [{"chunk_id": s["chunk_id"], "doc_id": s["doc_id"]} for s in res["sources"]],
         "steps": len(res["trace"]), "dropped_citations": res["dropped_citations"],
         "cited_docs": sorted({s["doc_id"] for s in res["sources"]}), "trace": res["trace"],
         "conflicts": res["conflicts"], "missing": res["missing"], "error": res.get("error"),
@@ -183,6 +208,8 @@ def main() -> None:
             run_sweep(searcher, questions)
     if "e3" in exps:
         run_e3(settings, questions, args.configs.split(","), args.limit, args.pause)
+    if "rescore" in exps:
+        rescore_e3(questions)
 
 
 if __name__ == "__main__":

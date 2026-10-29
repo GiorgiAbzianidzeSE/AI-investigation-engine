@@ -1,7 +1,7 @@
 import pytest
 
-from eval.metrics import (aggregate, citation_precision, contains, correctness, ranked_docs, recall_at_k,
-                          reciprocal_rank, token_f1)
+from eval.metrics import (aggregate, citation_precision, contains, content_correct, correctness, ranked_docs,
+                          recall_at_k, reciprocal_rank, token_f1)
 
 
 def test_contains_rules():
@@ -36,6 +36,10 @@ def test_correctness_answerable():
     assert correctness(q, result("answered", "CHG-0331 raised it")) == 0.0
     assert correctness(q, result("insufficient_evidence", "CHG-0331 200")) == 0.0
     assert correctness(q, result("answered", "see claims", [{"text": "CHG-0331 set 200", "citations": []}])) == 1.0
+    # a real conflict surfaced next to a complete answer: strict 0, content 1
+    assert correctness(q, result("conflicting_evidence", "CHG-0331 set 200")) == 0.0
+    assert content_correct(q, result("conflicting_evidence", "CHG-0331 set 200")) == 1.0
+    assert content_correct({"type": "unanswerable", "must_include": []}, result("answered")) is None
 
 
 def test_correctness_unanswerable_and_contradictory():
