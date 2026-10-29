@@ -128,7 +128,7 @@ class FakeLLM:
         self._LLMReply = LLMReply
         self.replies = list(replies)
         self.calls: list[dict] = []
-        self.provider_names = ["fake"]
+        self.names = ["fake"]
 
     def chat(self, messages, tools=None, json_mode=False):
         self.calls.append({"messages": [dict(m) for m in messages], "tools": tools, "json_mode": json_mode})

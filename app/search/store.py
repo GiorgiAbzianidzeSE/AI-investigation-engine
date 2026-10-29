@@ -7,9 +7,15 @@ Collections:
 import uuid
 from dataclasses import dataclass, field
 
+import httpx
 from qdrant_client import QdrantClient, models
+from qdrant_client.http.exceptions import ResponseHandlingException, UnexpectedResponse
 
 from app.config import Settings
+
+# what a caller should treat as "vector DB unavailable" (the API maps these to 503)
+STORE_ERRORS: tuple[type[Exception], ...] = (ResponseHandlingException, UnexpectedResponse, httpx.HTTPError,
+                                             ConnectionError, TimeoutError)
 
 
 @dataclass

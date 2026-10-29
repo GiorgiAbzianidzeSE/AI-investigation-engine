@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Investigation Engine</title>
+<style>
+  :root { --fg:#1d232b; --muted:#667085; --line:#e4e7ec; --bg:#f7f8fa; --accent:#2f5bea;
+          --green:#157f3b; --amber:#b25e09; --grey:#5d6673; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 system-ui, -apple-system, Segoe UI, sans-serif; color:var(--fg); background:var(--bg); }
+  header { background:#fff; border-bottom:1px solid var(--line); padding:12px 24px; display:flex; gap:24px; align-items:center; }
+  header h1 { font-size:17px; margin:0; }
+  header small { color:var(--muted); }
+  nav button { background:none; border:0; padding:8px 12px; font:inherit; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; }
+  nav button.active { color:var(--fg); border-color:var(--accent); }
+  main { max-width:1100px; margin:0 auto; padding:20px 24px 60px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px; margin-bottom:16px; }
+  textarea, input[type=text], input[type=password], select { font:inherit; padding:8px; border:1px solid var(--line); border-radius:6px; width:100%; }
+  textarea { min-height:70px; resize:vertical; }
+  button.primary { background:var(--accent); color:#fff; border:0; border-radius:6px; padding:8px 16px; font:inherit; cursor:pointer; }
+  button.primary:disabled { opacity:.6; cursor:wait; }
+  button.small { font-size:13px; padding:3px 8px; border:1px solid var(--line); background:#fff; border-radius:5px; cursor:pointer; }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .chips button { font-size:13px; border:1px solid var(--line); background:#fff; border-radius:14px; padding:3px 10px; cursor:pointer; margin:4px 4px 0 0; }
+  .badge { display:inline-block; padding:2px 10px; border-radius:12px; color:#fff; font-size:13px; font-weight:600; }
+  .answered { background:var(--green); } .conflicting_evidence { background:var(--amber); } .insufficient_evidence { background:var(--grey); }
+  .cite { display:inline-block; font-size:12px; background:#eef2ff; color:var(--accent); border-radius:4px; padding:0 5px; margin-left:3px; cursor:pointer; }
+  .source { border:1px solid var(--line); border-radius:6px; padding:8px 10px; margin:6px 0; transition:background .3s; }
+  .source.hl { background:#fff7d6; border-color:#e8c547; }
+  .muted { color:var(--muted); font-size:13px; }
+  .conflict { border-left:3px solid var(--amber); padding-left:10px; margin:8px 0; }
+  .error { background:#fdecec; border:1px solid #f3b5b5; color:#8a1f1f; border-radius:6px; padding:10px; }
+  table { border-collapse:collapse; width:100%; font-size:14px; }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:500; }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .chunk { border:1px solid var(--line); border-radius:6px; padding:8px; margin:6px 0; font-size:13px; white-space:pre-wrap; }
+  .hidden { display:none; }
+  details summary { cursor:pointer; color:var(--muted); }
+  code { font-size:12px; background:#f1f3f6; padding:1px 4px; border-radius:3px; }
+  @media (max-width: 800px) { .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div><h1>AI Investigation Engine</h1><small id="health">checking...</small></div>
+  <nav><button data-tab="investigate" class="active">Investigate</button><button data-tab="documents">Documents</button></nav>
+</header>
+<main>
+<!-- ============================ Investigate ============================ -->
+<section id="tab-investigate">
+  <div class="card">
+    <textarea id="question" maxlength="500" placeholder="Ask a question that needs evidence from several documents..."></textarea>
+    <div class="chips" id="examples"></div>
+    <details style="margin-top:8px"><summary>Advanced</summary>
+      <div class="row" style="margin-top:6px">
+        <label>Chunking <select id="strategy" style="width:auto"><option value="b">B - structure-aware</option><option value="a">A - fixed window</option></select></label>
+        <label>Retrieval <select id="mode" style="width:auto"><option value="full">full (our ranker)</option><option value="rrf">rrf</option><option value="dense">dense only</option><option value="sparse">BM25 only</option></select></label>
+      </div>
+    </details>
+    <div class="row" style="margin-top:10px"><button class="primary" id="go">Investigate</button><span class="muted" id="status-line"></span></div>
+  </div>
+  <div id="result"></div>
+</section>
+
+<!-- ============================ Documents ============================ -->
+<section id="tab-documents" class="hidden">
+  <div class="card">
+    <div class="row">
+      <input type="text" id="doc-q" placeholder="Search titles" style="flex:2">
+      <select id="doc-source" style="flex:1"><option value="">all sources</option><option>incidents</option><option>upload</option><option>hotpotqa</option></select>
+      <button class="small" id="doc-search">Search</button>
+    </div>
+    <div id="doc-list" style="margin-top:10px"></div>
+    <div class="row" style="margin-top:8px"><button class="small" id="doc-more" style="display:none">Next page</button></div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <b>Upload</b> <span class="muted">PDF, DOCX, HTML, MD, TXT - max 10 MB</span>
+      <div style="margin:8px 0"><input type="password" id="token" placeholder="Admin token"></div>
+      <div class="row"><input type="file" id="file" accept=".pdf,.docx,.html,.htm,.md,.txt">
+        <label class="muted"><input type="checkbox" id="replace"> replace existing</label>
+        <button class="primary" id="upload">Upload</button></div>
+      <div id="upload-msg" style="margin-top:8px"></div>
+    </div>
+    <div class="card" id="viewer"><span class="muted">Select a document to see its metadata and chunks.</span></div>
+  </div>
+</section>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const STATUS = {answered: "Answered", conflicting_evidence: "Conflicting evidence", insufficient_evidence: "Insufficient evidence"};
+const EXAMPLES = [
+  "Which system changes caused payment-processing delays in March 2026, which services were affected, and which documents prove it?",
+  "How long did INC-2041 last?",
+  "Which team owns fraud-scorer?",
+  "Who approved CHG-0314?",
+  "Were Scott Derrickson and Ed Wood of the same nationality?",
+];
+
+async function api(path, opts = {}) {
+  let res;
+  try { res = await fetch(path, opts); }
+  catch (e) { throw new Error("Network error: the server is not reachable (it may be waking up - try again in a minute)."); }
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`${res.status} ${body.error || "error"}: ${body.detail || res.statusText}`);
+  return body;
+}
+
+// ---------------------------------------------------------------- tabs + health
+document.querySelectorAll("nav button").forEach((b) => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach((x) => x.classList.toggle("active", x === b));
+  document.querySelectorAll("main > section").forEach((s) => s.classList.toggle("hidden", s.id !== "tab-" + b.dataset.tab));
+  if (b.dataset.tab === "documents" && !$("#doc-list").innerHTML) loadDocs(true);
+});
+api("/health").then((h) => {
+  $("#health").textContent = `${h.documents ?? "?"} documents - vector DB ${h.qdrant} - LLM: ${h.llm_providers.join(", ") || "none configured"}`;
+}).catch((e) => $("#health").textContent = e.message);
+
+// ---------------------------------------------------------------- investigate
+EXAMPLES.forEach((q) => {
+  const b = document.createElement("button"); b.textContent = q.length > 60 ? q.slice(0, 57) + "..." : q; b.title = q;
+  b.onclick = () => { $("#question").value = q; }; $("#examples").appendChild(b);
+});
+$("#go").onclick = investigate;
+$("#question").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) investigate(); });
+
+async function investigate() {
+  const question = $("#question").value.trim();
+  if (!question) return;
+  $("#go").disabled = true; $("#go").textContent = "Investigating...";
+  $("#status-line").textContent = "searching, reading and cross-checking documents (10-60 s)";
+  $("#result").innerHTML = "";
+  try {
+    const r = await api("/investigate", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({question, strategy: $("#strategy").value, mode: $("#mode").value})});
+    renderResult(r);
+  } catch (e) {
+    $("#result").innerHTML = `<div class="error">${esc(e.message)}</div>`;
+  } finally {
+    $("#go").disabled = false; $("#go").textContent = "Investigate"; $("#status-line").textContent = "";
+  }
+}
+
+function renderResult(r) {
+  const num = {}; r.sources.forEach((s, i) => num[s.chunk_id] = i + 1);
+  const chips = (cits) => cits.map((c) => `<span class="cite" data-c="${esc(c)}">[${num[c]}]</span>`).join("");
+  let h = `<div class="card"><span class="badge ${r.status}">${STATUS[r.status] || r.status}</span>
+    ${r.error ? `<span class="muted"> (${esc(r.error)})</span>` : ""}
+    <p>${esc(r.answer)}</p>`;
+  if (r.claims.length) h += `<b>Findings</b><ul>${r.claims.map((c) => `<li>${esc(c.text)}${chips(c.citations)}</li>`).join("")}</ul>`;
+  if (r.conflicts.length) h += `<b>Conflicting sources</b>` + r.conflicts.map((c) => `<div class="conflict"><i>${esc(c.topic)}</i>
+      <ul>${c.positions.map((p) => `<li>${esc(p.claim)}${chips(p.citations)}</li>`).join("")}</ul></div>`).join("");
+  if (r.missing.length) h += `<b>Missing evidence</b><ul>${r.missing.map((m) => `<li>${esc(m)}</li>`).join("")}</ul>`;
+  h += `</div>`;
+  if (r.sources.length) h += `<div class="card"><b>Sources</b>` + r.sources.map((s, i) => `<div class="source" id="src-${i + 1}">
+      <b>[${i + 1}] ${esc(s.title)}</b> <span class="muted">${esc(s.doc_id)}${s.date ? " - " + esc(s.date) : ""}</span>
+      <div class="muted">${esc(s.snippet)}...</div>
+      <button class="small" data-open="${esc(s.doc_id)}">open document</button></div>`).join("") + `</div>`;
+  const u = r.usage;
+  h += `<div class="card"><details><summary>Trace (${r.trace.length} steps) and usage</summary>
+    <table><tr><th>step</th><th>tool</th><th>args</th><th>results</th></tr>
+    ${r.trace.map((t) => `<tr><td>${t.step}</td><td>${esc(t.tool)}${t.auto ? " (auto)" : ""}</td><td><code>${esc(JSON.stringify(t.args))}</code></td><td>${t.results}</td></tr>`).join("")}</table>
+    <p class="muted">LLM calls: ${u.llm_calls} (cache hits ${u.cache_hits}) - tokens in/out: ${u.input_tokens}/${u.output_tokens}
+    - latency: ${(u.latency_ms / 1000).toFixed(1)} s - provider: ${esc(u.providers.join(", "))}
+    - config: chunking ${r.config.strategy}, retrieval ${r.config.mode} - dropped citations: ${r.dropped_citations}</p></details></div>`;
+  $("#result").innerHTML = h;
+  $("#result").querySelectorAll(".cite").forEach((el) => el.onclick = () => {
+    const card = $("#src-" + num[el.dataset.c]); if (!card) return;
+    card.scrollIntoView({behavior: "smooth", block: "center"});
+    card.classList.add("hl"); setTimeout(() => card.classList.remove("hl"), 1800);
+  });
+  $("#result").querySelectorAll("[data-open]").forEach((el) => el.onclick = () => openDoc(el.dataset.open, true));
+}
+
+// ---------------------------------------------------------------- documents
+let nextOffset = null;
+$("#doc-search").onclick = () => loadDocs(true);
+$("#doc-q").addEventListener("keydown", (e) => { if (e.key === "Enter") loadDocs(true); });
+$("#doc-source").onchange = () => loadDocs(true);
+$("#doc-more").onclick = () => loadDocs(false);
+$("#token").value = sessionStorage.getItem("adminToken") || "";
+$("#token").oninput = () => sessionStorage.setItem("adminToken", $("#token").value);
+
+async function loadDocs(reset) {
+  const p = new URLSearchParams({limit: 25});
+  if ($("#doc-q").value.trim()) p.set("q", $("#doc-q").value.trim());
+  if ($("#doc-source").value) p.set("source", $("#doc-source").value);
+  if (!reset && nextOffset) p.set("offset", nextOffset);
+  try {
+    const r = await api("/documents?" + p);
+    nextOffset = r.next_offset;
+    const rows = r.items.map((d) => `<tr><td><a href="#" data-open="${esc(d.doc_id)}">${esc(d.title)}</a><div class="muted">${esc(d.doc_id)}</div></td>
+      <td>${esc(d.format)}</td><td>${esc(d.doc_type)}</td><td>${esc(d.date || "")}</td><td>v${d.version}</td>
+      <td>${d.near_duplicate_of ? `<span class="badge conflicting_evidence" title="${esc(d.near_duplicate_of)}">near-dup</span>` : ""}</td>
+      <td>${d.source === "upload" ? `<button class="small" data-del="${esc(d.doc_id)}">delete</button>` : ""}</td></tr>`).join("");
+    const table = reset ? `<table><thead><tr><th>title</th><th>format</th><th>type</th><th>date</th><th>version</th><th></th><th></th></tr></thead><tbody>${rows}</tbody></table>` : null;
+    if (reset) $("#doc-list").innerHTML = r.items.length ? table : `<span class="muted">No documents found.</span>`;
+    else $("#doc-list tbody").insertAdjacentHTML("beforeend", rows);
+    $("#doc-more").style.display = nextOffset ? "" : "none";
+    $("#doc-list").querySelectorAll("[data-open]").forEach((el) => el.onclick = (e) => { e.preventDefault(); openDoc(el.dataset.open); });
+    $("#doc-list").querySelectorAll("[data-del]").forEach((el) => el.onclick = () => deleteDoc(el.dataset.del));
+  } catch (e) { $("#doc-list").innerHTML = `<div class="error">${esc(e.message)}</div>`; }
+}
+
+async function openDoc(docId, switchTab = false, strategy = "b") {
+  if (switchTab) document.querySelector('nav button[data-tab="documents"]').click();
+  $("#viewer").innerHTML = `<span class="muted">loading...</span>`;
+  try {
+    const r = await api(`/documents/${encodeURIComponent(docId)}?strategy=${strategy}`);
+    const d = r.document;
+    $("#viewer").innerHTML = `<b>${esc(d.title)}</b><div class="muted">${esc(d.doc_id)} - ${esc(d.format)} - ${esc(d.doc_type)}
+      ${d.date ? " - " + esc(d.date) : ""} - v${d.version} - source ${esc(d.source)}
+      ${d.near_duplicate_of ? " - near duplicate of " + esc(d.near_duplicate_of) : ""}</div>
+      <div class="row" style="margin:8px 0">Chunks:
+        <button class="small" data-s="a" ${strategy === "a" ? "disabled" : ""}>strategy A (fixed)</button>
+        <button class="small" data-s="b" ${strategy === "b" ? "disabled" : ""}>strategy B (structure)</button>
+        <span class="muted">${r.chunks.length} chunks</span></div>
+      ${r.chunks.map((c) => `<div class="chunk"><span class="muted">${esc(c.chunk_id)}${c.heading ? " - " + esc(c.heading) : ""}</span>\n${esc(c.text)}</div>`).join("")}`;
+    $("#viewer").querySelectorAll("[data-s]").forEach((b) => b.onclick = () => openDoc(docId, false, b.dataset.s));
+    $("#viewer").scrollIntoView({behavior: "smooth", block: "start"});
+  } catch (e) { $("#viewer").innerHTML = `<div class="error">${esc(e.message)}</div>`; }
+}
+
+$("#upload").onclick = async () => {
+  const f = $("#file").files[0];
+  if (!f) { $("#upload-msg").innerHTML = `<span class="muted">Choose a file first.</span>`; return; }
+  const fd = new FormData(); fd.append("file", f); fd.append("replace", $("#replace").checked);
+  $("#upload").disabled = true; $("#upload-msg").innerHTML = `<span class="muted">parsing, chunking and embedding...</span>`;
+  try {
+    const r = await api("/documents", {method: "POST", body: fd, headers: {"X-Admin-Token": $("#token").value}});
+    const msg = {added: `Added <b>${esc(r.doc_id)}</b> (${r.chunks} chunks).`,
+                 updated: `Updated <b>${esc(r.doc_id)}</b> to version ${r.version} (${r.chunks} chunks, old chunks removed).`,
+                 duplicate: `Duplicate: identical content is already indexed as <b>${esc(r.duplicate_of)}</b>. Nothing was added.`}[r.status];
+    $("#upload-msg").innerHTML = `<div class="card" style="margin:0">${msg}${r.near_duplicate_of ? `<br><span class="badge conflicting_evidence">near duplicate</span> very similar to <b>${esc(r.near_duplicate_of)}</b>` : ""}</div>`;
+    loadDocs(true);
+  } catch (e) { $("#upload-msg").innerHTML = `<div class="error">${esc(e.message)}</div>`; }
+  finally { $("#upload").disabled = false; }
+};
+
+async function deleteDoc(docId) {
+  if (!confirm(`Delete ${docId}?`)) return;
+  try {
+    await api(`/documents/${encodeURIComponent(docId)}`, {method: "DELETE", headers: {"X-Admin-Token": $("#token").value}});
+    loadDocs(true); $("#viewer").innerHTML = `<span class="muted">Deleted ${esc(docId)}.</span>`;
+  } catch (e) { alert(e.message); }
+}
+</script>
+</body>
+</html>
