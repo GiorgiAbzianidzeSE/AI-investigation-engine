@@ -1,17 +1,30 @@
 {
  "aggregate": {
   "all": {
-   "correct": 0.8,
-   "content_correct": 0.812,
-   "f1": 0.194,
-   "citation_precision": 0.731,
-   "citation_support": 1.0,
-   "latency_s": 17.438,
-   "llm_calls": 4.2,
-   "tokens": 10870.55,
-   "steps": 2.85,
-   "dropped_citations": 0.45,
-   "n": 20
+   "correct": 0.786,
+   "content_correct": 0.833,
+   "f1": 0.201,
+   "citation_precision": 0.845,
+   "citation_support": 0.971,
+   "latency_s": 37.428,
+   "llm_calls": 4.238,
+   "tokens": 11746.333,
+   "steps": 3.19,
+   "dropped_citations": 0.214,
+   "n": 42
+  },
+  "contradictory": {
+   "correct": 0.5,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": 0.833,
+   "citation_support": 0.833,
+   "latency_s": 38.282,
+   "llm_calls": 4.167,
+   "tokens": 9927.0,
+   "steps": 3.167,
+   "dropped_citations": 0.0,
+   "n": 6
   },
   "multi_doc": {
    "correct": 0.625,
@@ -25,6 +38,19 @@
    "steps": 3.125,
    "dropped_citations": 1.0,
    "n": 8
+  },
+  "multi_hop": {
+   "correct": 0.857,
+   "content_correct": 0.857,
+   "f1": 0.208,
+   "citation_precision": 0.964,
+   "citation_support": 1.0,
+   "latency_s": 61.828,
+   "llm_calls": 4.0,
+   "tokens": 11652.714,
+   "steps": 3.357,
+   "dropped_citations": 0.0,
+   "n": 14
   },
   "simple": {
    "correct": 0.875,
@@ -45,12 +71,12 @@
    "f1": null,
    "citation_precision": null,
    "citation_support": null,
-   "latency_s": 45.565,
+   "latency_s": 51.702,
    "llm_calls": 6.5,
-   "tokens": 23800.25,
+   "tokens": 24739.333,
    "steps": 5.5,
    "dropped_citations": 0.0,
-   "n": 4
+   "n": 6
   }
  },
  "rows": [
@@ -1690,6 +1716,1815 @@
    "missing": [
     "SLA of auth-service"
    ],
+   "error": null
+  },
+  {
+   "id": "U5",
+   "type": "unanswerable",
+   "question": "Which outages affected the mobile-app service in March?",
+   "expect_status": "insufficient_evidence",
+   "status": "insufficient_evidence",
+   "answer": "The provided evidence does not contain information about any outages affecting the mobile-app service in March.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 43.9,
+   "llm_calls": 7,
+   "tokens": 31618,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [],
+   "steps": 6,
+   "dropped_citations": 0,
+   "cited_docs": [],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "mobile-app service March outage"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "mobile-app"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "service OR incident March 2026"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "mobile"
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "search_corpus",
+     "args": {
+      "query": "service list catalog"
+     },
+     "results": 8
+    },
+    {
+     "step": 6,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:service-catalog-html"
+     },
+     "results": 1
+    }
+   ],
+   "conflicts": [],
+   "missing": [
+    "Information regarding outages affecting the mobile-app service in March"
+   ],
+   "error": null
+  },
+  {
+   "id": "U6",
+   "type": "unanswerable",
+   "question": "Who is the CEO of Northwind Payments?",
+   "expect_status": "insufficient_evidence",
+   "status": "insufficient_evidence",
+   "answer": "The provided evidence does not mention who the CEO of Northwind Payments is.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": null,
+   "citation_support": null,
+   "latency_s": 84.05,
+   "llm_calls": 6,
+   "tokens": 21617,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [],
+   "steps": 5,
+   "dropped_citations": 0,
+   "cited_docs": [],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CEO Northwind Payments"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "CEO"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Northwind Payments executive OR director OR leader"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Northwind Payments employee OR team OR manager OR founder OR staff"
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "finish",
+     "args": {
+      "reason": "The provided documents describe Northwind Payments' technical architecture, services, and incident history, but do not mention who the CEO is."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [
+    "Name of the CEO of Northwind Payments"
+   ],
+   "error": null
+  },
+  {
+   "id": "X1",
+   "type": "contradictory",
+   "question": "What was the root cause of INC-2041?",
+   "expect_status": "conflicting_evidence",
+   "status": "answered",
+   "answer": "The root cause of INC-2041 was CHG-0311, which reduced the ledger database connection pool from 200 to 50 connections as a cost-reduction measure based on faulty averaged monitoring data that missed short morning traffic peaks.",
+   "correct": 0.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 55.89,
+   "llm_calls": 5,
+   "tokens": 13507,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "The root cause was CHG-0311, the reduction of the ledger DB connection pool from 200 to 50 connections on 2026-03-03.",
+     "citations": [
+      "incidents:pm-2041-postmortem-pdf#b4"
+     ]
+    },
+    {
+     "text": "The change was planned as a cost reduction and was based on February monitoring data using five-minute averages, which hide short bursts during the morning traffic ramp.",
+     "citations": [
+      "incidents:pm-2041-postmortem-pdf#b4"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:pm-2041-postmortem-pdf#b4",
+     "doc_id": "incidents:pm-2041-postmortem-pdf"
+    }
+   ],
+   "steps": 4,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:pm-2041-postmortem-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "doc_ids": [
+       "incidents:pm-2041-postmortem-pdf"
+      ],
+      "query": "root cause"
+     },
+     "results": 3
+    },
+    {
+     "step": 3,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:pm-2041-postmortem-pdf"
+     },
+     "results": 6
+    },
+    {
+     "step": 4,
+     "tool": "finish",
+     "args": {
+      "reason": "Root cause of INC-2041 is clearly documented in PM-2041 Postmortem as CHG-0311 (reduction of the ledger DB connection pool from 200 to 50 connections)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "X2",
+   "type": "contradictory",
+   "question": "How long did INC-2041 last?",
+   "expect_status": "conflicting_evidence",
+   "status": "answered",
+   "answer": "INC-2041 lasted for 3 hours and 40 minutes, from 09:40 to 13:20 UTC on 2026-03-05.",
+   "correct": 0.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 52.1,
+   "llm_calls": 4,
+   "tokens": 8403,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "INC-2041 lasted 3 h 40 min from 09:40 to 13:20 UTC.",
+     "citations": [
+      "incidents:inc-2041-incident-report-pdf#b0",
+      "incidents:inc-2041-incident-report-pdf#b1"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b0",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b1",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2041-incident-report-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:inc-2041-incident-report-pdf"
+     },
+     "results": 6
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "INC-2041 lasted for 3 hours and 40 minutes (from 09:40 to 13:20 UTC on 2026-03-05)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "X3",
+   "type": "contradictory",
+   "question": "How many merchants were affected by INC-2047?",
+   "expect_status": "conflicting_evidence",
+   "status": "conflicting_evidence",
+   "answer": "The available sources provide conflicting figures for the number of merchants affected by INC-2047.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 23.07,
+   "llm_calls": 5,
+   "tokens": 13437,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b5",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2047-incident-report-pdf#b1",
+     "doc_id": "incidents:inc-2047-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:finance-summary-march-2026-html#b0",
+     "doc_id": "incidents:finance-summary-march-2026-html"
+    },
+    {
+     "chunk_id": "incidents:finance-summary-march-2026-html#b1",
+     "doc_id": "incidents:finance-summary-march-2026-html"
+    }
+   ],
+   "steps": 4,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:finance-summary-march-2026-html",
+    "incidents:inc-2047-incident-report-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2047 merchants affected"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2047 postmortem merchants affected"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:inc-2047-incident-report-pdf"
+     },
+     "results": 6
+    },
+    {
+     "step": 4,
+     "tool": "finish",
+     "args": {
+      "reason": "Found the number of affected merchants in both the INC-2047 Incident Report (1,200 merchants) and the March 2026 Finance Summary (4,500 merchants)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [
+    {
+     "topic": "Number of merchants affected by INC-2047",
+     "positions": [
+      {
+       "claim": "1,200 merchants received their payouts late.",
+       "citations": [
+        "incidents:inc-2047-incident-report-pdf#b5",
+        "incidents:inc-2047-incident-report-pdf#b1"
+       ]
+      },
+      {
+       "claim": "4,500 merchants had payouts delayed.",
+       "citations": [
+        "incidents:finance-summary-march-2026-html#b0",
+        "incidents:finance-summary-march-2026-html#b1"
+       ]
+      }
+     ]
+    }
+   ],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "X4",
+   "type": "contradictory",
+   "question": "Which team owns fraud-scorer?",
+   "expect_status": "conflicting_evidence",
+   "status": "conflicting_evidence",
+   "answer": "The evidence contains conflicting information regarding the owner of fraud-scorer.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 16.94,
+   "llm_calls": 3,
+   "tokens": 4786,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [
+    {
+     "chunk_id": "incidents:fraud-scorer-runbook-md#b0",
+     "doc_id": "incidents:fraud-scorer-runbook-md"
+    },
+    {
+     "chunk_id": "incidents:service-catalog-html#b0",
+     "doc_id": "incidents:service-catalog-html"
+    }
+   ],
+   "steps": 2,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:fraud-scorer-runbook-md",
+    "incidents:service-catalog-html"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "fraud-scorer owner"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "finish",
+     "args": {
+      "reason": "Found the owner of fraud-scorer in the Service Catalog and other documents."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [
+    {
+     "topic": "Owning team of fraud-scorer",
+     "positions": [
+      {
+       "claim": "The fraud-scorer runbook states the owner is the ML Platform team.",
+       "citations": [
+        "incidents:fraud-scorer-runbook-md#b0"
+       ]
+      },
+      {
+       "claim": "The Service Catalog lists Risk Engineering as the owner of fraud-scorer.",
+       "citations": [
+        "incidents:service-catalog-html#b0"
+       ]
+      }
+     ]
+    }
+   ],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "X5",
+   "type": "contradictory",
+   "question": "Was fraud-scorer a contributing factor in INC-2041?",
+   "expect_status": "conflicting_evidence",
+   "status": "conflicting_evidence",
+   "answer": "Sources disagree on whether fraud-scorer was a contributing factor in INC-2041.",
+   "correct": 1.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 58.67,
+   "llm_calls": 4,
+   "tokens": 9776,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [],
+   "sources": [
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b5",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:pm-2041-postmortem-pdf#b3",
+     "doc_id": "incidents:pm-2041-postmortem-pdf"
+    },
+    {
+     "chunk_id": "incidents:inc-2041-incident-report-pdf#b3",
+     "doc_id": "incidents:inc-2041-incident-report-pdf"
+    },
+    {
+     "chunk_id": "incidents:pm-2041-postmortem-pdf#b5",
+     "doc_id": "incidents:pm-2041-postmortem-pdf"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:inc-2041-incident-report-pdf",
+    "incidents:pm-2041-postmortem-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:pm-2041-postmortem-pdf"
+     },
+     "results": 6
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "According to the PM-2041 postmortem ('Contributing factors' section), fraud-scorer was not a contributing factor. Its model change (CHG-0314) happened the same morning, but the ledger DB connection pool limit (CHG-0311) would have been reached by normal peak traffic regardless."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [
+    {
+     "topic": "Whether fraud-scorer was a contributing factor in INC-2041",
+     "positions": [
+      {
+       "claim": "fraud-scorer is listed as an affected service, and its deployment of model v4 coincided with increased latency and the timing of the incident before being rolled back.",
+       "citations": [
+        "incidents:inc-2041-incident-report-pdf#b5",
+        "incidents:pm-2041-postmortem-pdf#b3",
+        "incidents:inc-2041-incident-report-pdf#b3"
+       ]
+      },
+      {
+       "claim": "fraud-scorer was explicitly not a contributing factor, because although its model change happened the same morning, the pool limit would have been reached by normal peak traffic regardless.",
+       "citations": [
+        "incidents:pm-2041-postmortem-pdf#b5"
+       ]
+      }
+     ]
+    }
+   ],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "X6",
+   "type": "contradictory",
+   "question": "Was INC-2041 caused by an external provider?",
+   "expect_status": "conflicting_evidence",
+   "status": "answered",
+   "answer": "No, INC-2041 was not caused by an external provider; its root cause was an internal change (CHG-0311) that reduced the ledger database connection pool from 200 to 50 connections.",
+   "correct": 0.0,
+   "content_correct": null,
+   "f1": null,
+   "citation_precision": 0.0,
+   "citation_support": 0.0,
+   "latency_s": 23.02,
+   "llm_calls": 4,
+   "tokens": 9653,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "The root cause of INC-2041 was CHG-0311, the reduction of the ledger DB connection pool from 200 to 50 connections on 2026-03-03.",
+     "citations": [
+      "incidents:pm-2041-postmortem-pdf#b4"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "incidents:pm-2041-postmortem-pdf#b4",
+     "doc_id": "incidents:pm-2041-postmortem-pdf"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "incidents:pm-2041-postmortem-pdf"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "INC-2041"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "incidents:pm-2041-postmortem-pdf"
+     },
+     "results": 6
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "INC-2041 was not caused by an external provider. According to the postmortem and incident reports, the root cause was an internal capacity change (CHG-0311, which reduced the ledger database connection pool from 200 to 50 connections) combined with morning traffic peaks."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HB1",
+   "type": "multi_hop",
+   "question": "Where did this dish emerge in the late 1950s that is a long-standing tradition in New Jersey? ",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Disco fries are a long-standing tradition in New Jersey, while the dish poutine emerged in the late 1950s in the Centre-du-Qu\u00e9bec area.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.21428571428571425,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 46.93,
+   "llm_calls": 6,
+   "tokens": 25011,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "New Jersey is home to approximately 525 diners, the most of any state, and where disco fries are a long-standing tradition.",
+     "citations": [
+      "hp:66b70bbb4911155c#na0"
+     ]
+    },
+    {
+     "text": "Poutine emerged in the late 1950s in the Centre-du-Qu\u00e9bec area.",
+     "citations": [
+      "hp:52c6e031551ac98d#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:66b70bbb4911155c#na0",
+     "doc_id": "hp:66b70bbb4911155c"
+    },
+    {
+     "chunk_id": "hp:52c6e031551ac98d#na0",
+     "doc_id": "hp:52c6e031551ac98d"
+    }
+   ],
+   "steps": 5,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:52c6e031551ac98d",
+    "hp:66b70bbb4911155c"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "New Jersey dish late 1950s tradition"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"disco fries\" emerged late 1950s"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"disco fries\" origin late 1950s OR diners OR New Jersey OR New York"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"Centre-du-Qu\u00e9bec\""
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "finish",
+     "args": {
+      "reason": "Successfully identified the dish that emerged in the late 1950s (poutine, which originated in the Centre-du-Qu\u00e9bec area) and its connection to New Jersey (where disco fries, a similar dish of fries with gravy and cheese, are a long-standing tradition in diners)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HB2",
+   "type": "multi_hop",
+   "question": "How many top 20 singles did the singer that released the 1990 album \"Reputation\" have?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Dusty Springfield, who released the 1990 album \"Reputation\", had six top 20 singles on the US Billboard Hot 100.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.1,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 120.42,
+   "llm_calls": 6,
+   "tokens": 24152,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Reputation and Rarities is a repackaged/re-released version of British singer Dusty Springfield's 1990 studio album, \"Reputation\".",
+     "citations": [
+      "hp:79f3cae6e2dc4b5c#na0"
+     ]
+    },
+    {
+     "text": "Dusty Springfield had six top 20 singles on the US \"Billboard\" Hot 100 from 1963 to 1989.",
+     "citations": [
+      "hp:7390fbdb44eb9d8c#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:79f3cae6e2dc4b5c#na0",
+     "doc_id": "hp:79f3cae6e2dc4b5c"
+    },
+    {
+     "chunk_id": "hp:7390fbdb44eb9d8c#na0",
+     "doc_id": "hp:7390fbdb44eb9d8c"
+    }
+   ],
+   "steps": 5,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:7390fbdb44eb9d8c",
+    "hp:79f3cae6e2dc4b5c"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "1990 album Reputation singer"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Dusty Springfield 1990 album Reputation"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "top 20 singles",
+      "doc_id": "hp:7390fbdb44eb9d8c"
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "hp:7390fbdb44eb9d8c"
+     },
+     "results": 1
+    },
+    {
+     "step": 5,
+     "tool": "finish",
+     "args": {
+      "reason": "Found that the singer who released the 1990 album \"Reputation\" is British singer Dusty Springfield (with her album \"Reputation\"), and according to her biography document, she had six top 20 singles on the US Billboard Hot 100 and sixteen on the UK Singles Chart from 1963 to 1989."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HB3",
+   "type": "multi_hop",
+   "question": "Who was the woman whose execution for treason by German firing squad was the reason for Prussian Generalleutnant (Lieutenant General) Traugott von Sauberzweig's replacement as Military Governor of Brussels in 1915?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The woman was Edith Cavell, whose execution by a German firing squad in 1915 led to Prussian Generalleutnant Traugott von Sauberzweig being supplanted as Military Governor of Brussels.",
+   "correct": 0.0,
+   "content_correct": 0.0,
+   "f1": 0.12903225806451613,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 53.84,
+   "llm_calls": 3,
+   "tokens": 5360,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Edith Cavell was executed by a German firing squad in 1915 after being accused of treason.",
+     "citations": [
+      "hp:5e64397c92d511c3#na0"
+     ]
+    },
+    {
+     "text": "The Cavell case was the reason that Traugott von Sauberzweig was supplanted as Military Governor of Brussels.",
+     "citations": [
+      "hp:58fa7312379583a5#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:5e64397c92d511c3#na0",
+     "doc_id": "hp:5e64397c92d511c3"
+    },
+    {
+     "chunk_id": "hp:58fa7312379583a5#na0",
+     "doc_id": "hp:58fa7312379583a5"
+    }
+   ],
+   "steps": 2,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:58fa7312379583a5",
+    "hp:5e64397c92d511c3"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Traugott von Sauberzweig Military Governor of Brussels 1915 execution treason German firing squad woman"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "finish",
+     "args": {
+      "reason": "Found the exact answer: Edith Cavell (Edith Louisa Cavell)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HB4",
+   "type": "multi_hop",
+   "question": "For what ogranization does a commentator of Press TV serve as associate director?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Douglas Murray, a commentator for Press TV, serves as associate director for the Henry Jackson Society.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.3157894736842105,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 85.8,
+   "llm_calls": 7,
+   "tokens": 26437,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Douglas Murray is described as a commentator for Press TV.",
+     "citations": [
+      "hp:baf5b88bc614582d#na0"
+     ]
+    },
+    {
+     "text": "Douglas Murray is currently the associate director of the Henry Jackson Society.",
+     "citations": [
+      "hp:1e951ae91c75b3de#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:baf5b88bc614582d#na0",
+     "doc_id": "hp:baf5b88bc614582d"
+    },
+    {
+     "chunk_id": "hp:1e951ae91c75b3de#na0",
+     "doc_id": "hp:1e951ae91c75b3de"
+    }
+   ],
+   "steps": 6,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:1e951ae91c75b3de",
+    "hp:baf5b88bc614582d"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Press TV commentator associate director"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"associate director\" \"Press TV\""
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"associate director\" commentator \"Press TV\""
+     },
+     "results": 8
+    },
+    {
+     "step": 4,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"associate director\" \"Press TV\" OR \"Press TV commentator\""
+     },
+     "results": 8
+    },
+    {
+     "step": 5,
+     "tool": "get_document",
+     "args": {
+      "doc_id": "hp:1e951ae91c75b3de"
+     },
+     "results": 1
+    },
+    {
+     "step": 6,
+     "tool": "finish",
+     "args": {
+      "reason": "Found the commentator for Press TV (Douglas Murray, who was described as a commentator for Press TV in Press TV controversies, and serves as associate director of the Henry Jackson Society)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HB5",
+   "type": "multi_hop",
+   "question": " WDAL is a country music radio station licensed to a city in what Georgia county?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "WDAL is a country music radio station licensed to Dalton, Georgia, which is located in Whitfield County.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.21052631578947367,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 32.44,
+   "llm_calls": 4,
+   "tokens": 9540,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "WDAL is a country music radio station licensed to Dalton, Georgia.",
+     "citations": [
+      "hp:31121563df122897#na0"
+     ]
+    },
+    {
+     "text": "Dalton is a city in Whitfield County, Georgia.",
+     "citations": [
+      "hp:d1df13b4d899ac42#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:31121563df122897#na0",
+     "doc_id": "hp:31121563df122897"
+    },
+    {
+     "chunk_id": "hp:d1df13b4d899ac42#na0",
+     "doc_id": "hp:d1df13b4d899ac42"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:31121563df122897",
+    "hp:d1df13b4d899ac42"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "WDAL country music radio station Georgia county"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Dalton Georgia county"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "WDAL is a country music radio station licensed to Dalton, Georgia, which is located in Whitfield County."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HB6",
+   "type": "multi_hop",
+   "question": "Liam McEwan works with what UK monthly men's lifestyle magazine?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Liam McEwan works with FHM, which was a UK monthly men's lifestyle magazine.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.13333333333333333,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 58.23,
+   "llm_calls": 3,
+   "tokens": 4275,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Liam McEwan works with FHM with a focus on celebrity interviews, music, entertainment, and social media.",
+     "citations": [
+      "hp:6e0c063426442e4f#na0"
+     ]
+    },
+    {
+     "text": "FHM was a UK monthly men's lifestyle magazine.",
+     "citations": [
+      "hp:954765af820e851d#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:6e0c063426442e4f#na0",
+     "doc_id": "hp:6e0c063426442e4f"
+    },
+    {
+     "chunk_id": "hp:954765af820e851d#na0",
+     "doc_id": "hp:954765af820e851d"
+    }
+   ],
+   "steps": 2,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:6e0c063426442e4f",
+    "hp:954765af820e851d"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Liam McEwan mens lifestyle magazine UK"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "finish",
+     "args": {
+      "reason": "Found Liam McEwan works with FHM, which is described in the corpus as a UK monthly men's lifestyle magazine."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HB7",
+   "type": "multi_hop",
+   "question": "Who was the artist that recorded a duet in 1985 for the CBS TV series 'Dallas' with an artist that was born in 1951 and has twenty #1 hits?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Gary Morris recorded the 1985 duet \"Makin' Up for Lost Time (The Dallas Lovers' Song)\" for the CBS TV series 'Dallas' with Crystal Gayle, who was born in 1951 and had twenty #1 hits.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.1111111111111111,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 48.76,
+   "llm_calls": 4,
+   "tokens": 11104,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Gary Morris recorded the song \"Makin' Up for Lost Time (The Dallas Lovers' Song)\" as a duet from the CBS TV series \"Dallas\" in October 1985.",
+     "citations": [
+      "hp:efbeea0e496e62a8#na0"
+     ]
+    },
+    {
+     "text": "Gary Morris recorded the duet with Crystal Gayle.",
+     "citations": [
+      "hp:efbeea0e496e62a8#na0"
+     ]
+    },
+    {
+     "text": "Crystal Gayle was born on January 9, 1951.",
+     "citations": [
+      "hp:b4a71e2d214bb4f1#na0"
+     ]
+    },
+    {
+     "text": "Crystal Gayle had twenty #1 country hits during the 1970s and 1980s.",
+     "citations": [
+      "hp:b4a71e2d214bb4f1#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:efbeea0e496e62a8#na0",
+     "doc_id": "hp:efbeea0e496e62a8"
+    },
+    {
+     "chunk_id": "hp:b4a71e2d214bb4f1#na0",
+     "doc_id": "hp:b4a71e2d214bb4f1"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:b4a71e2d214bb4f1",
+    "hp:efbeea0e496e62a8"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Dallas CBS TV series duet 1985"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "\"Crystal Gayle\" OR \"Gary Morris\" born 1951 twenty #1 hits"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Identified the artist as Gary Morris, who recorded the 1985 duet 'Makin' Up for Lost Time (The Dallas Lovers' Song)' for the CBS TV series Dallas with Crystal Gayle (born January 9, 1951, who had twenty #1 country hits)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HC1",
+   "type": "multi_hop",
+   "question": "Which dog is native to France, the Basset Bleu de Gascogne or the Bulldog?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The Basset Bleu de Gascogne is described as a French native breed. The Bulldog is commonly referred to as the English Bulldog or British Bulldog.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.2758620689655173,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 65.07,
+   "llm_calls": 4,
+   "tokens": 8439,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "The Basset Bleu de Gascogne is a French native breed.",
+     "citations": [
+      "hp:0a8ec82f7f4850ed#na0"
+     ]
+    },
+    {
+     "text": "The Bulldog is commonly referred to as the English Bulldog or British Bulldog.",
+     "citations": [
+      "hp:59dc81f7888531c4#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:0a8ec82f7f4850ed#na0",
+     "doc_id": "hp:0a8ec82f7f4850ed"
+    },
+    {
+     "chunk_id": "hp:59dc81f7888531c4#na0",
+     "doc_id": "hp:59dc81f7888531c4"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:0a8ec82f7f4850ed",
+    "hp:59dc81f7888531c4"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Basset Bleu de Gascogne native France Bulldog"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Bulldog origin England OR Britain"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Both the documents and general classification show that the Basset Bleu de Gascogne is a French native breed (explicitly described as a 'French native breed' originating in France), whereas the Bulldog (English/British Bulldog) originates in England/Britain."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HC2",
+   "type": "multi_hop",
+   "question": "Are Tweedia and Crossandra in separate families?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Yes, Tweedia and Crossandra are in separate families; Tweedia is a genus in the Apocynaceae family, while Crossandra is a genus in the Acanthaceae family.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.07692307692307693,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 68.29,
+   "llm_calls": 4,
+   "tokens": 9712,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "\"Tweedia\" is a genus of flowering plants in the Apocynaceae family",
+     "citations": [
+      "hp:f12448da71637b83#na0"
+     ]
+    },
+    {
+     "text": "Crossandra is a genus of plants in the family Acanthaceae",
+     "citations": [
+      "hp:bf680b0479386f5f#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:f12448da71637b83#na0",
+     "doc_id": "hp:f12448da71637b83"
+    },
+    {
+     "chunk_id": "hp:bf680b0479386f5f#na0",
+     "doc_id": "hp:bf680b0479386f5f"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:bf680b0479386f5f",
+    "hp:f12448da71637b83"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Tweedia Crossandra family"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Crossandra family plant"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Tweedia belongs to the Apocynaceae family, while Crossandra belongs to the Acanthaceae family. Therefore, they are in separate families."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HC3",
+   "type": "multi_hop",
+   "question": "Which mountain is higher, Nanda Devi or Broad Peak?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Broad Peak is higher than Nanda Devi, as Broad Peak has an elevation of 8051 m compared to Nanda Devi's elevation of 7816 m.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.14814814814814814,
+   "citation_precision": 0.5,
+   "citation_support": 1.0,
+   "latency_s": 53.04,
+   "llm_calls": 3,
+   "tokens": 7777,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Broad Peak is 8051 m above sea level.",
+     "citations": [
+      "hp:cb89ce873fd491d2#na0"
+     ]
+    },
+    {
+     "text": "Nanda Devi has an elevation of 7816 m.",
+     "citations": [
+      "hp:11d10560132457e4#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:cb89ce873fd491d2#na0",
+     "doc_id": "hp:cb89ce873fd491d2"
+    },
+    {
+     "chunk_id": "hp:11d10560132457e4#na0",
+     "doc_id": "hp:11d10560132457e4"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:11d10560132457e4",
+    "hp:cb89ce873fd491d2"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Nanda Devi elevation height"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Broad Peak elevation height"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Broad Peak is higher (8,051 m) than Nanda Devi (7,816 m)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HC4",
+   "type": "multi_hop",
+   "question": "Who gained recognition earlier, Tim Roth or Polly Draper",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Tim Roth gained recognition earlier, starting with critical acclaim and a BAFTA nomination for the 1984 film \"The Hit,\" whereas Polly Draper first gained recognition for her role in the television drama \"Thirtysomething\" (1987\u201391).",
+   "correct": 0.0,
+   "content_correct": 0.0,
+   "f1": 0.10526315789473684,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 61.98,
+   "llm_calls": 3,
+   "tokens": 8165,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Tim Roth garnered critical acclaim for his role in the 1984 film \"The Hit\" and was nominated for his first BAFTA Award.",
+     "citations": [
+      "hp:e4226bd6d45894d6#na0"
+     ]
+    },
+    {
+     "text": "Polly Draper first gained recognition for her role in the ABC primetime television drama \"Thirtysomething\" (1987\u201391).",
+     "citations": [
+      "hp:f156dca161af97a9#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:e4226bd6d45894d6#na0",
+     "doc_id": "hp:e4226bd6d45894d6"
+    },
+    {
+     "chunk_id": "hp:f156dca161af97a9#na0",
+     "doc_id": "hp:f156dca161af97a9"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:e4226bd6d45894d6",
+    "hp:f156dca161af97a9"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Tim Roth career recognition debut"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Polly Draper career recognition debut"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Tim Roth gained recognition earlier (he received critical acclaim and a BAFTA nomination for the 1984 film The Hit), whereas Polly Draper first gained recognition for her role in Thirtysomething (1987-91)."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HC5",
+   "type": "multi_hop",
+   "question": "Which building was completed first the W. R. Grace Building or 10 Hudson Yards?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "The W. R. Grace Building was completed first, in 1974, whereas 10 Hudson Yards was completed in 2016.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.3636363636363636,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 36.8,
+   "llm_calls": 3,
+   "tokens": 7515,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "The W. R. Grace Building was completed in 1974.",
+     "citations": [
+      "hp:243408a907983ae1#na0"
+     ]
+    },
+    {
+     "text": "10 Hudson Yards was completed in 2016.",
+     "citations": [
+      "hp:08419f5a0daf2cb6#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:243408a907983ae1#na0",
+     "doc_id": "hp:243408a907983ae1"
+    },
+    {
+     "chunk_id": "hp:08419f5a0daf2cb6#na0",
+     "doc_id": "hp:08419f5a0daf2cb6"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:08419f5a0daf2cb6",
+    "hp:243408a907983ae1"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "W. R. Grace Building completed year"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "10 Hudson Yards completed year"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Both buildings' completion years were found: the W. R. Grace Building was completed in 1974, and 10 Hudson Yards was completed in 2016. Therefore, the W. R. Grace Building was completed first."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HC6",
+   "type": "multi_hop",
+   "question": "Which of the following was founded in 2003: University of Arizona or Presbyterian University College?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Presbyterian University College was established in 2003, whereas the University of Arizona was founded in 1885.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.3157894736842105,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 67.13,
+   "llm_calls": 3,
+   "tokens": 8017,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "The University of Arizona was founded in 1885.",
+     "citations": [
+      "hp:63babce40289a079#na0"
+     ]
+    },
+    {
+     "text": "Presbyterian University College was established by the Presbyterian Church of Ghana on 23 November 2003.",
+     "citations": [
+      "hp:fc74d8766843244c#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:63babce40289a079#na0",
+     "doc_id": "hp:63babce40289a079"
+    },
+    {
+     "chunk_id": "hp:fc74d8766843244c#na0",
+     "doc_id": "hp:fc74d8766843244c"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:63babce40289a079",
+    "hp:fc74d8766843244c"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "University of Arizona founded 2003"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Presbyterian University College founded 2003"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Founding years verified: University of Arizona was founded in 1885, and Presbyterian University College was established in 2003."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "HC7",
+   "type": "multi_hop",
+   "question": "Which was published first Timothy McSweeney's Quarterly Concern or Scrye?",
+   "expect_status": "answered",
+   "status": "answered",
+   "answer": "Scrye was published first, launching in June 1994, whereas Timothy McSweeney's Quarterly Concern was first published in 1998.",
+   "correct": 1.0,
+   "content_correct": 1.0,
+   "f1": 0.4166666666666667,
+   "citation_precision": 1.0,
+   "citation_support": 1.0,
+   "latency_s": 66.86,
+   "llm_calls": 3,
+   "tokens": 7634,
+   "cache_hits": 0,
+   "providers": [
+    "gemini:gemini-3.5-flash-lite"
+   ],
+   "claims": [
+    {
+     "text": "Scrye was launched in June 1994.",
+     "citations": [
+      "hp:2f41e5a3e4ca73ed#na0"
+     ]
+    },
+    {
+     "text": "Timothy McSweeney's Quarterly Concern was first published in 1998.",
+     "citations": [
+      "hp:0ff833208b6f393e#na0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "chunk_id": "hp:2f41e5a3e4ca73ed#na0",
+     "doc_id": "hp:2f41e5a3e4ca73ed"
+    },
+    {
+     "chunk_id": "hp:0ff833208b6f393e#na0",
+     "doc_id": "hp:0ff833208b6f393e"
+    }
+   ],
+   "steps": 3,
+   "dropped_citations": 0,
+   "cited_docs": [
+    "hp:0ff833208b6f393e",
+    "hp:2f41e5a3e4ca73ed"
+   ],
+   "trace": [
+    {
+     "step": 1,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Timothy McSweeney's Quarterly Concern publication date"
+     },
+     "results": 8
+    },
+    {
+     "step": 2,
+     "tool": "search_corpus",
+     "args": {
+      "query": "Scrye magazine publication date first issue"
+     },
+     "results": 8
+    },
+    {
+     "step": 3,
+     "tool": "finish",
+     "args": {
+      "reason": "Both publications' initial dates are clear from the retrieved documents: Scrye was launched in June 1994, while Timothy McSweeney's Quarterly Concern was first published in 1998. Therefore, Scrye was published first."
+     },
+     "results": 0
+    }
+   ],
+   "conflicts": [],
+   "missing": [],
    "error": null
   }
  ]
