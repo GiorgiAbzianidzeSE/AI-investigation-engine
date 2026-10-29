@@ -56,7 +56,7 @@ user accounts, polished UI design.
 | Groq | fallback LLM | `GROQ_API_KEY`, `GROQ_MODEL` |
 | Qdrant Cloud | free 1 GB cluster, persistent vector DB | `QDRANT_URL`, `QDRANT_API_KEY` |
 | Hugging Face | Docker Space hosting the app | Space secrets; `HF_TOKEN` only for pushing |
-| (self-made) | protects upload/replace/delete on the public demo | `ADMIN_TOKEN` |
+| (self-made) | protects replace/delete on the public demo | `ADMIN_TOKEN` |
 
 Setup steps: see [07-deployment.md](07-deployment.md).
 

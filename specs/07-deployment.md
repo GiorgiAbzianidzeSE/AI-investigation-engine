@@ -54,7 +54,7 @@ Expected: about 60k records embedded on CPU in minutes, plus upload time to Qdra
 ## Secrets
 
 - Only env vars / Space secrets. `.env` is git-ignored; `.env.example` lists the names with empty values.
-- The admin token protects write endpoints; questions are public.
+- The admin token protects replace and delete; questions and new uploads are public (the brief asks that users can add documents).
 - Before pushing: `git grep -nE "(sk-|AIza|gsk_)"` returns nothing.
 
 ## Free-tier limits to document in README

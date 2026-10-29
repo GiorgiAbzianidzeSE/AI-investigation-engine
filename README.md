@@ -20,16 +20,18 @@ hybrid search, with our own ranking function, not "chat with a PDF".
 Try: *"Which system changes caused payment-processing delays in March 2026, which services were affected, and
 which documents prove it?"*
 
-**Asking questions is open to everyone. Uploading, replacing and deleting documents need the admin token**, so
-a public demo can't be filled with junk or emptied. In the UI, paste it into the *Admin token* field on the
-*Documents* tab; over the API send it as a header:
+**Asking questions and uploading new documents are open to everyone** (max 10 MB; exact and near-duplicates
+are rejected). **Replacing or deleting a document needs the admin token**, so the public demo can't be emptied
+or have the seeded corpus overwritten. In the UI, paste it into the *Admin token* field on the *Documents* tab;
+over the API send it as a header:
 
 ```bash
-curl -X POST "$URL/documents" -H "X-Admin-Token: $ADMIN_TOKEN" -F file=@report.pdf
+curl -X POST "$URL/documents" -F file=@report.pdf                                   # public
+curl -X DELETE "$URL/documents/upload:report-pdf" -H "X-Admin-Token: $ADMIN_TOKEN"   # admin
 ```
 
-The token is the server's `ADMIN_TOKEN` env var (set it in `.env` locally). For the hosted demo, reviewers get
-it from the repository owner on request; it is never committed. Running locally, you choose your own.
+The token is the server's `ADMIN_TOKEN` env var (set it in `.env` locally); it is never committed. While it is
+unset, replace and delete are disabled.
 
 ## Architecture
 
@@ -145,8 +147,8 @@ Evaluation: `uv run python -m eval.run_eval --experiments e1,e2,sweep` (retrieva
   `HF_TOKEN=hf_... scripts/push_space.sh <user>/<space>`).
 - **Qdrant Cloud** free cluster holds all data, so the container disk is treated as temporary.
 - **Secrets** are Space secrets / `.env` only (git-ignored): `QDRANT_URL, QDRANT_API_KEY, GEMINI_API_KEY,
-  GEMINI_MODEL, GROQ_API_KEY, GROQ_MODEL, ADMIN_TOKEN`. Asking questions is public; upload, replace and delete
-  need the `X-Admin-Token` header (compared with `hmac.compare_digest`). Writes are disabled while
+  GEMINI_MODEL, GROQ_API_KEY, GROQ_MODEL, ADMIN_TOKEN`. Asking questions and uploading are public; replace and
+  delete need the `X-Admin-Token` header (compared with `hmac.compare_digest`). They are disabled while
   `ADMIN_TOKEN` is unset.
 
 ### Free-tier limits

@@ -113,9 +113,14 @@ def _http(_: Request, e: StarletteHTTPException):
 
 
 def require_admin(x_admin_token: str | None = Header(default=None), svc: Services = Depends(get_services)) -> None:
+    check_admin(x_admin_token, svc)
+
+
+def check_admin(x_admin_token: str | None, svc: Services) -> None:
     expected = svc.settings.admin_token or ""
     if expected in ("", "change-me"):
-        raise ApiError(401, "unauthorized", "Uploads are disabled: ADMIN_TOKEN is not configured on the server.")
+        raise ApiError(401, "unauthorized",
+                       "Replace and delete are disabled: ADMIN_TOKEN is not configured on the server.")
     if not x_admin_token or not hmac.compare_digest(x_admin_token.encode(), expected.encode()):
         raise ApiError(401, "unauthorized", "A valid X-Admin-Token header is required for this action "
                        "(in the UI: the Admin token field on the Documents tab; the value is the server's ADMIN_TOKEN).")
@@ -160,8 +165,12 @@ def get_document(doc_id: str, strategy: str = Query("b", pattern="^(a|b)$"), svc
                                          "strategy": c.payload.get("strategy"), "text": c.text} for c in chunks]}
 
 
-@app.post("/documents", dependencies=[Depends(require_admin)])
-def upload_document(file: UploadFile = File(...), replace: bool = Form(False), svc: Services = Depends(get_services)):
+@app.post("/documents")
+def upload_document(file: UploadFile = File(...), replace: bool = Form(False),
+                    x_admin_token: str | None = Header(default=None), svc: Services = Depends(get_services)):
+    # adding is public (anyone can try the pipeline); overwriting an existing document is destructive
+    if replace:
+        check_admin(x_admin_token, svc)
     data = file.file.read(MAX_UPLOAD + 1)
     if len(data) > MAX_UPLOAD:
         raise ApiError(413, "file_too_large", "Files must be at most 10 MB.")

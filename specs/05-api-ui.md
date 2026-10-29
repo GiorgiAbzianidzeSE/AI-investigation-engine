@@ -10,7 +10,7 @@ reached through FastAPI dependencies, so tests can override them with fakes.
 | GET | `/health` | — | `{qdrant: ok/error, documents: n, llm_providers: [...], embed_cache: {...}}` |
 | GET | `/documents` | `source?`, `q?` (title search), `limit=50`, `offset?` | `{items: [doc metadata], next_offset}` |
 | GET | `/documents/{doc_id}` | `strategy=b` | `{document, chunks: [{chunk_id, heading, text}]}` |
-| POST | `/documents` | multipart `file`, `replace=false`; header `X-Admin-Token` | `IngestResult {status, doc_id, chunks, version, duplicate_of, near_duplicate_of}` |
+| POST | `/documents` | multipart `file`, `replace=false`; header `X-Admin-Token` only when `replace=true` | `IngestResult {status, doc_id, chunks, version, duplicate_of, near_duplicate_of}` |
 | DELETE | `/documents/{doc_id}` | header `X-Admin-Token` | `{deleted: doc_id}` |
 | POST | `/investigate` | `{question, strategy?: "a"/"b", mode?: "dense"/"sparse"/"rrf"/"full"}` | response contract from 04 |
 | GET | `/` | — | the UI |

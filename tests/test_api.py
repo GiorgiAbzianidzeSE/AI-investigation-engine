@@ -74,19 +74,23 @@ def test_no_llm_configured_is_503(client):
     assert c.post("/investigate", json={"question": "q"}).status_code == 503
 
 
-def test_upload_requires_token(client):
+def test_upload_is_public_but_replace_and_delete_need_token(client):
     c, _ = client
     files = {"file": ("a.md", b"# A\n\nbody text")}
-    assert c.post("/documents", files=files).status_code == 401
-    assert c.post("/documents", files=files, headers={"X-Admin-Token": "wrong"}).status_code == 401
+    assert c.post("/documents", files=files).status_code == 200
+    assert c.post("/documents", files=files, data={"replace": "true"}).status_code == 401
+    assert c.post("/documents", files=files, data={"replace": "true"},
+                  headers={"X-Admin-Token": "wrong"}).status_code == 401
     assert c.delete("/documents/upload:a-md").status_code == 401
 
 
-def test_placeholder_admin_token_disables_writes(client):
+def test_placeholder_admin_token_disables_destructive_writes(client):
     c, svc = client
     svc.settings = svc.settings.model_copy(update={"admin_token": "change-me"})
-    r = c.post("/documents", files={"file": ("a.md", b"# A\n\nx")}, headers={"X-Admin-Token": "change-me"})
+    r = c.post("/documents", files={"file": ("a.md", b"# A\n\nx")}, data={"replace": "true"},
+               headers={"X-Admin-Token": "change-me"})
     assert r.status_code == 401
+    assert c.delete("/documents/upload:a-md", headers={"X-Admin-Token": "change-me"}).status_code == 401
 
 
 def test_upload_replace_duplicate_delete_flow(client):

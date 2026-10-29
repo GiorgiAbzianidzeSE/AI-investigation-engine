@@ -15,7 +15,7 @@ vectors), `FakeLLM` (scripted replies, can raise 429 / timeout).
 | provider | retry then succeed; 429 on primary → fallback; all fail → `LLMUnavailable`; cache hit makes no call |
 | citations | invented chunk_id dropped; claim without citations dropped; empty → insufficient; conflicts → conflicting |
 | agent | scripted tool calls produce a trace; no tool calls → safety-net search; invalid JSON → repair → abstain |
-| api | `/investigate` with fakes returns the contract; upload without token → 401; LLM down → 503 |
+| api | `/investigate` with fakes returns the contract; upload is public, replace/delete without token → 401; LLM down → 503 |
 | metrics | Recall@K, MRR, correctness rules on tiny examples |
 
 Command: `uv run pytest -q`. Optional: GitHub Action running pytest on push.

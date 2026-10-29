@@ -79,8 +79,8 @@
     <div class="card">
       <b>Upload</b> <span class="muted">PDF, DOCX, HTML, MD, TXT - max 10 MB</span>
       <div style="margin:8px 0"><input type="password" id="token" placeholder="Admin token">
-        <div class="muted" style="margin-top:4px">Uploads and deletes need the server's ADMIN_TOKEN (ask the demo
-          owner, or set your own in .env when running locally). Asking questions needs no token.</div></div>
+        <div class="muted" style="margin-top:4px">Uploading needs no token. Replace and delete need the server's
+          ADMIN_TOKEN (set your own in .env when running locally).</div></div>
       <div class="row"><input type="file" id="file" accept=".pdf,.docx,.html,.htm,.md,.txt">
         <label class="muted"><input type="checkbox" id="replace"> replace existing</label>
         <button class="primary" id="upload">Upload</button></div>
