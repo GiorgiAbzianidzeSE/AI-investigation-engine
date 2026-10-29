@@ -16,7 +16,7 @@ documents. The Space disk is treated as temporary.
 1. **GitHub**: create a public repo `ai-investigation-engine`; push from the start (history is graded).
 2. **Google AI Studio** (aistudio.google.com): "Get API key" → `GEMINI_API_KEY`. Pick a current Flash
    model for `GEMINI_MODEL` and note its free-tier limits (requests/min, requests/day).
-3. **Groq** (console.groq.com): API key → `GROQ_API_KEY`; choose a tool-calling model (e.g. a Llama 3.x 70B) → `GROQ_MODEL`.
+3. **Groq** (console.groq.com): API key → `GROQ_API_KEY`; choose a tool-calling model (e.g. openai/gpt-oss-120b) → `GROQ_MODEL`.
 4. **Qdrant Cloud** (cloud.qdrant.io): create a free cluster (1 GB) → copy the cluster URL (`QDRANT_URL`,
    including `:6333`) and create an API key (`QDRANT_API_KEY`).
 5. **Hugging Face**: create a Space → SDK **Docker** → hardware "CPU basic (free)". Add the secrets
