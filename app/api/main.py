@@ -114,7 +114,9 @@ def _http(_: Request, e: StarletteHTTPException):
 
 def require_admin(x_admin_token: str | None = Header(default=None), svc: Services = Depends(get_services)) -> None:
     expected = svc.settings.admin_token or ""
-    if not expected or not x_admin_token or not hmac.compare_digest(x_admin_token.encode(), expected.encode()):
+    if expected in ("", "change-me"):
+        raise ApiError(401, "unauthorized", "Uploads are disabled: ADMIN_TOKEN is not configured on the server.")
+    if not x_admin_token or not hmac.compare_digest(x_admin_token.encode(), expected.encode()):
         raise ApiError(401, "unauthorized", "A valid X-Admin-Token header is required for this action.")
 
 

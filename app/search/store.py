@@ -56,7 +56,8 @@ class QdrantStore:
         self.s = settings
         if client is None:
             client = (QdrantClient(path=settings.qdrant_path) if settings.qdrant_path
-                      else QdrantClient(url=settings.qdrant_url, api_key=settings.qdrant_api_key, timeout=60))
+                      else QdrantClient(url=settings.qdrant_url or "http://localhost:6333",
+                                        api_key=settings.qdrant_api_key or None, timeout=60))
         self.client = client
 
     # ---------- setup ----------

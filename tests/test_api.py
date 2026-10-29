@@ -82,6 +82,13 @@ def test_upload_requires_token(client):
     assert c.delete("/documents/upload:a-md").status_code == 401
 
 
+def test_placeholder_admin_token_disables_writes(client):
+    c, svc = client
+    svc.settings = svc.settings.model_copy(update={"admin_token": "change-me"})
+    r = c.post("/documents", files={"file": ("a.md", b"# A\n\nx")}, headers={"X-Admin-Token": "change-me"})
+    assert r.status_code == 401
+
+
 def test_upload_replace_duplicate_delete_flow(client):
     c, _ = client
     r = c.post("/documents", files={"file": ("a.md", b"# A\n\nfirst body")}, headers=AUTH).json()
