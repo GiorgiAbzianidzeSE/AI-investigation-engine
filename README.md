@@ -14,7 +14,7 @@ searches several sources with tools, links facts across documents, and answers *
 When the evidence is missing it says so; when sources disagree it shows both sides. This is agentic RAG over
 hybrid search, with our own ranking function, not "chat with a PDF".
 
-- **Live demo:** _(Render URL, added after deployment)_
+- **Live demo:** https://ai-investigation-engine-nq21.onrender.com (Render free tier: sleeps after 15 min idle, the first request takes about a minute)
 - **Evaluation:** [EVALUATION.md](EVALUATION.md) · **AI usage:** [AI_USAGE.md](AI_USAGE.md) · **Specs:** [specs/](specs/README.md)
 
 Try: *"Which system changes caused payment-processing delays in March 2026, which services were affected, and
