@@ -8,3 +8,6 @@ data/cache/
 models/
 eval/results/*.cache.json
 .DS_Store
+eval/results/*.json
+!eval/results/e*-*.json
+!eval/results/sweep-*.json
