@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     model_cache_dir: str = "models"
 
     gemini_api_key: str | None = None
-    gemini_model: str = "gemini-2.5-flash"
+    gemini_model: str = "gemini-3.5-flash"
     gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     groq_api_key: str | None = None
     groq_model: str = "llama-3.3-70b-versatile"
