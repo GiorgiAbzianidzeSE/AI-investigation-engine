@@ -128,8 +128,8 @@ Evaluation: `uv run python -m eval.run_eval --experiments e1,e2,sweep` (retrieva
 ## Deployment
 
 - **Hugging Face Docker Space** (free CPU basic) runs FastAPI, the UI and the local embedding models (baked into
-  the image, port 7860, non-root user). Deploy:
-  then `HF_TOKEN=hf_... scripts/push_space.sh <user>/<space>` (pushes only the app files; the corpus lives in Qdrant and the Space rejects binary files outside LFS).
+  the image, port 7860, non-root user). Deploy with `HF_TOKEN=hf_... scripts/push_space.sh <user>/<space>`:
+  it pushes only the app files, since the corpus lives in Qdrant and the Space rejects binary files outside LFS.
 - **Qdrant Cloud** free cluster holds all data, so the Space disk is treated as temporary.
 - **Secrets** are Space secrets / `.env` only (git-ignored): `QDRANT_URL, QDRANT_API_KEY, GEMINI_API_KEY,
   GEMINI_MODEL, GROQ_API_KEY, GROQ_MODEL, ADMIN_TOKEN`. Asking questions is public; upload, replace and delete
